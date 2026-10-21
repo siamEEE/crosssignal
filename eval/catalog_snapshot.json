@@ -1,0 +1,196 @@
+{
+  "source": "iTunes Search API via crosssignal.catalog.search_tracks",
+  "entries": [
+    {
+      "artist": "Agnes Obel",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Alternative"
+      ]
+    },
+    {
+      "artist": "Austin Wintory",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Soundtrack"
+      ]
+    },
+    {
+      "artist": "Bonobo",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Electronic"
+      ]
+    },
+    {
+      "artist": "Carpenter Brut",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Electronic"
+      ]
+    },
+    {
+      "artist": "Christopher Larkin",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Soundtrack"
+      ]
+    },
+    {
+      "artist": "Cliff Martinez",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Soundtrack"
+      ]
+    },
+    {
+      "artist": "Fleet Foxes",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Alternative"
+      ]
+    },
+    {
+      "artist": "Hans Zimmer",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Soundtrack",
+        "TV Soundtrack"
+      ]
+    },
+    {
+      "artist": "Joe Hisaishi",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Soundtrack",
+        "Original Score"
+      ]
+    },
+    {
+      "artist": "Kavinsky",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Electronic"
+      ]
+    },
+    {
+      "artist": "Kevin Shields",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Soundtrack"
+      ]
+    },
+    {
+      "artist": "Khruangbin",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Indie Rock",
+        "Alternative"
+      ]
+    },
+    {
+      "artist": "M83",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Electronic"
+      ]
+    },
+    {
+      "artist": "Massive Attack",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Electronic"
+      ]
+    },
+    {
+      "artist": "Max Richter",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Classical Crossover"
+      ]
+    },
+    {
+      "artist": "Men I Trust",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Pop"
+      ]
+    },
+    {
+      "artist": "Nujabes",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Anime",
+        "Hip-Hop/Rap"
+      ]
+    },
+    {
+      "artist": "Perturbator",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Electronic"
+      ]
+    },
+    {
+      "artist": "Portishead",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Electronic"
+      ]
+    },
+    {
+      "artist": "Sufjan Stevens",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Soundtrack",
+        "Alternative"
+      ]
+    },
+    {
+      "artist": "The Jesus and Mary Chain",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Alternative",
+        "Rock"
+      ]
+    },
+    {
+      "artist": "Tycho",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Electronic"
+      ]
+    },
+    {
+      "artist": "Ólafur Arnalds",
+      "status": "found",
+      "track_count": 3,
+      "genres": [
+        "Classical Crossover",
+        "Ambient"
+      ]
+    }
+  ]
+}

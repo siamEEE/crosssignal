@@ -1,0 +1,1414 @@
+{
+  "schema_version": 1,
+  "config": {
+    "providers": [
+      "curated",
+      "random-baseline"
+    ],
+    "catalog_mode": "snapshot",
+    "max_artists": 8,
+    "profiles": 20,
+    "common_subset_profiles": [
+      "ambiguous-journey",
+      "cafe-amelie",
+      "concrete-and-colour",
+      "cozy-adventurer",
+      "duplicate-input",
+      "five-worlds",
+      "global-screens",
+      "gothic-reader",
+      "melancholy-strings",
+      "neon-noir",
+      "own-wording",
+      "single-film",
+      "space-and-spirits",
+      "synth-overlap",
+      "trail-and-meadow"
+    ]
+  },
+  "providers": {
+    "curated": {
+      "profiles": 20,
+      "outcomes": {
+        "abstained": 3,
+        "answered": 15,
+        "correct_rejection": 2
+      },
+      "provider_error_rate": 0.0,
+      "all_answered": {
+        "answered": 15,
+        "mean_grounded_rate": 1.0,
+        "mean_uncited_rate": 0.0,
+        "invalid_citations": 0,
+        "mean_interest_coverage": 0.8,
+        "mean_duplicate_rate": 0.0,
+        "within_limit_rate": 1.0,
+        "pooled_available_rate": 1.0,
+        "catalog_errors": 0,
+        "catalog_unmeasured": 0,
+        "mean_genre_entropy": 0.7435984218574814,
+        "provider_scores_present": 0,
+        "distinct_artist_ratio": 0.4339622641509434,
+        "mean_pairwise_jaccard": 0.07121634978777835
+      },
+      "common_subset": {
+        "answered": 15,
+        "mean_grounded_rate": 1.0,
+        "mean_uncited_rate": 0.0,
+        "invalid_citations": 0,
+        "mean_interest_coverage": 0.8,
+        "mean_duplicate_rate": 0.0,
+        "within_limit_rate": 1.0,
+        "pooled_available_rate": 1.0,
+        "catalog_errors": 0,
+        "catalog_unmeasured": 0,
+        "mean_genre_entropy": 0.7435984218574814,
+        "provider_scores_present": 0,
+        "distinct_artist_ratio": 0.4339622641509434,
+        "mean_pairwise_jaccard": 0.07121634978777835
+      }
+    },
+    "random-baseline": {
+      "profiles": 20,
+      "outcomes": {
+        "answered": 18,
+        "correct_rejection": 2
+      },
+      "provider_error_rate": 0.0,
+      "all_answered": {
+        "answered": 18,
+        "mean_grounded_rate": 1.0,
+        "mean_uncited_rate": 0.0,
+        "invalid_citations": 0,
+        "mean_interest_coverage": 1.0,
+        "mean_duplicate_rate": 0.0,
+        "within_limit_rate": 1.0,
+        "pooled_available_rate": 1.0,
+        "catalog_errors": 0,
+        "catalog_unmeasured": 0,
+        "mean_genre_entropy": 0.6454663993146492,
+        "provider_scores_present": 0,
+        "distinct_artist_ratio": 0.1597222222222222,
+        "mean_pairwise_jaccard": 0.21666176960294606
+      },
+      "common_subset": {
+        "answered": 15,
+        "mean_grounded_rate": 1.0,
+        "mean_uncited_rate": 0.0,
+        "invalid_citations": 0,
+        "mean_interest_coverage": 1.0,
+        "mean_duplicate_rate": 0.0,
+        "within_limit_rate": 1.0,
+        "pooled_available_rate": 1.0,
+        "catalog_errors": 0,
+        "catalog_unmeasured": 0,
+        "mean_genre_entropy": 0.6422389235570244,
+        "provider_scores_present": 0,
+        "distinct_artist_ratio": 0.19166666666666668,
+        "mean_pairwise_jaccard": 0.2143963972535401
+      }
+    }
+  },
+  "overlap": {
+    "curated vs random-baseline": {
+      "profiles_compared": 15,
+      "mean_jaccard": 0.13276094276094275,
+      "mean_rbo_p0.9": 0.08916834772084475
+    }
+  },
+  "records": [
+    {
+      "profile_id": "neon-noir",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "cross-domain"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Massive Attack",
+        "Kavinsky",
+        "Bonobo",
+        "Portishead",
+        "Cliff Martinez",
+        "Tycho"
+      ],
+      "artist_count": 6,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 6,
+      "catalog_answered": 6,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.25146299858006066,
+      "distinct_genre_ratio": 0.3333333333333333,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "cozy-adventurer",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "cross-domain"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Christopher Larkin",
+        "Austin Wintory",
+        "Joe Hisaishi",
+        "Max Richter",
+        "Ólafur Arnalds",
+        "Nujabes"
+      ],
+      "artist_count": 6,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 6,
+      "catalog_answered": 6,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.5644754678724236,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "single-film",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "single-interest"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "M83",
+        "Hans Zimmer"
+      ],
+      "artist_count": 2,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 2,
+      "catalog_answered": 2,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 1.0,
+      "distinct_genre_ratio": 1.0,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "five-worlds",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "max-interests",
+        "cross-domain"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "The Jesus and Mary Chain",
+        "Carpenter Brut",
+        "Khruangbin",
+        "Max Richter",
+        "Fleet Foxes",
+        "Kevin Shields",
+        "Perturbator",
+        "Men I Trust"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.8333333333333333,
+      "distinct_genre_ratio": 0.75,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "melancholy-strings",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "shared-artist"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Christopher Larkin",
+        "Max Richter",
+        "Agnes Obel"
+      ],
+      "artist_count": 3,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 3,
+      "catalog_answered": 3,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.9999999999999998,
+      "distinct_genre_ratio": 1.0,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "gothic-reader",
+      "provider": "curated",
+      "tags": [
+        "partially-supported",
+        "books"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [
+        "The Secret History",
+        "Wuthering Heights"
+      ],
+      "artists": [
+        "Max Richter",
+        "Agnes Obel"
+      ],
+      "artist_count": 2,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 0.3333333333333333,
+      "available_rate": 1.0,
+      "catalog_found": 2,
+      "catalog_answered": 2,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 1.0,
+      "distinct_genre_ratio": 1.0,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "food-and-travel",
+      "provider": "curated",
+      "tags": [
+        "unsupported",
+        "non-media"
+      ],
+      "status": "unsupported",
+      "outcome": "abstained",
+      "error": null,
+      "unsupported_interests": [
+        "Neapolitan pizza",
+        "Kyoto temples",
+        "Specialty pour-over coffee"
+      ],
+      "artists": []
+    },
+    {
+      "profile_id": "global-screens",
+      "provider": "curated",
+      "tags": [
+        "partially-supported",
+        "non-western"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [
+        "Bollywood musicals",
+        "K-dramas"
+      ],
+      "artists": [
+        "Joe Hisaishi",
+        "Nujabes"
+      ],
+      "artist_count": 2,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 0.3333333333333333,
+      "available_rate": 1.0,
+      "catalog_found": 2,
+      "catalog_answered": 2,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 1.0,
+      "distinct_genre_ratio": 1.0,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "prestige-tv",
+      "provider": "curated",
+      "tags": [
+        "unsupported",
+        "tv"
+      ],
+      "status": "unsupported",
+      "outcome": "abstained",
+      "error": null,
+      "unsupported_interests": [
+        "Twin Peaks",
+        "Severance"
+      ],
+      "artists": []
+    },
+    {
+      "profile_id": "pit-lane-style",
+      "provider": "curated",
+      "tags": [
+        "unsupported",
+        "non-media"
+      ],
+      "status": "unsupported",
+      "outcome": "abstained",
+      "error": null,
+      "unsupported_interests": [
+        "Formula 1",
+        "Streetwear"
+      ],
+      "artists": []
+    },
+    {
+      "profile_id": "ambiguous-journey",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "ambiguous-name",
+        "single-interest"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Austin Wintory",
+        "Ólafur Arnalds"
+      ],
+      "artist_count": 2,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 2,
+      "catalog_answered": 2,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 1.0,
+      "distinct_genre_ratio": 1.0,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "own-wording",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "paraphrased-names"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Kavinsky",
+        "Carpenter Brut",
+        "Cliff Martinez",
+        "Perturbator"
+      ],
+      "artist_count": 4,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 4,
+      "catalog_answered": 4,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.4056390622295664,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "duplicate-input",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "duplicate-input"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Kavinsky",
+        "Cliff Martinez"
+      ],
+      "artist_count": 2,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 2,
+      "catalog_answered": 2,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 1.0,
+      "distinct_genre_ratio": 1.0,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "empty",
+      "provider": "curated",
+      "tags": [
+        "invalid-input"
+      ],
+      "status": "rejected",
+      "outcome": "correct_rejection",
+      "error": "no interests",
+      "unsupported_interests": [],
+      "artists": []
+    },
+    {
+      "profile_id": "over-limit",
+      "provider": "curated",
+      "tags": [
+        "invalid-input",
+        "over-limit"
+      ],
+      "status": "rejected",
+      "outcome": "correct_rejection",
+      "error": "more than 5 interests",
+      "unsupported_interests": [],
+      "artists": []
+    },
+    {
+      "profile_id": "concrete-and-colour",
+      "provider": "curated",
+      "tags": [
+        "partially-supported",
+        "visual-art"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [
+        "Brutalist architecture",
+        "Mark Rothko paintings"
+      ],
+      "artists": [
+        "Bonobo",
+        "Tycho"
+      ],
+      "artist_count": 2,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 0.3333333333333333,
+      "available_rate": 1.0,
+      "catalog_found": 2,
+      "catalog_answered": 2,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.0,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "trail-and-meadow",
+      "provider": "curated",
+      "tags": [
+        "partially-supported",
+        "outdoors"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [
+        "Long-distance hiking"
+      ],
+      "artists": [
+        "Fleet Foxes",
+        "Sufjan Stevens"
+      ],
+      "artist_count": 2,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 0.5,
+      "available_rate": 1.0,
+      "catalog_found": 2,
+      "catalog_answered": 2,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 1.0,
+      "distinct_genre_ratio": 1.0,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "synth-overlap",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "similar-interests"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Kavinsky",
+        "Carpenter Brut",
+        "Cliff Martinez",
+        "Perturbator"
+      ],
+      "artist_count": 4,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 4,
+      "catalog_answered": 4,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.4056390622295664,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "cafe-amelie",
+      "provider": "curated",
+      "tags": [
+        "partially-supported",
+        "unicode"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [
+        "Amélie"
+      ],
+      "artists": [
+        "Khruangbin",
+        "Men I Trust"
+      ],
+      "artist_count": 2,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 0.5,
+      "available_rate": 1.0,
+      "catalog_found": 2,
+      "catalog_answered": 2,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 1.0,
+      "distinct_genre_ratio": 1.0,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "space-and-spirits",
+      "provider": "curated",
+      "tags": [
+        "fully-supported",
+        "cross-domain"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "M83",
+        "Austin Wintory",
+        "Joe Hisaishi",
+        "Hans Zimmer",
+        "Ólafur Arnalds",
+        "Nujabes"
+      ],
+      "artist_count": 6,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 6,
+      "catalog_answered": 6,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.6934264036172707,
+      "distinct_genre_ratio": 0.6666666666666666,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "neon-noir",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "cross-domain"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Sufjan Stevens",
+        "Hans Zimmer",
+        "Kavinsky",
+        "Fleet Foxes",
+        "Cliff Martinez",
+        "Bonobo",
+        "The Jesus and Mary Chain",
+        "Massive Attack"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.5204260414863777,
+      "distinct_genre_ratio": 0.375,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "cozy-adventurer",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "cross-domain"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Fleet Foxes",
+        "Ólafur Arnalds",
+        "Sufjan Stevens",
+        "Kavinsky",
+        "M83",
+        "Max Richter",
+        "Men I Trust",
+        "Joe Hisaishi"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.75,
+      "distinct_genre_ratio": 0.625,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "single-film",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "single-interest"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Austin Wintory",
+        "Men I Trust",
+        "Joe Hisaishi",
+        "Kavinsky",
+        "Max Richter",
+        "Khruangbin",
+        "Perturbator",
+        "M83"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.7185463540765221,
+      "distinct_genre_ratio": 0.625,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "five-worlds",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "max-interests",
+        "cross-domain"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Bonobo",
+        "Massive Attack",
+        "Christopher Larkin",
+        "Agnes Obel",
+        "Carpenter Brut",
+        "Nujabes",
+        "Portishead",
+        "Joe Hisaishi"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.5833333333333334,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "melancholy-strings",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "shared-artist"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Fleet Foxes",
+        "Kavinsky",
+        "Max Richter",
+        "Kevin Shields",
+        "Carpenter Brut",
+        "Tycho",
+        "Hans Zimmer",
+        "Sufjan Stevens"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.6037593748197109,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "gothic-reader",
+      "provider": "random-baseline",
+      "tags": [
+        "partially-supported",
+        "books"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "M83",
+        "Nujabes",
+        "Kavinsky",
+        "Khruangbin",
+        "Austin Wintory",
+        "Max Richter",
+        "Joe Hisaishi",
+        "Tycho"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.7185463540765221,
+      "distinct_genre_ratio": 0.625,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "food-and-travel",
+      "provider": "random-baseline",
+      "tags": [
+        "unsupported",
+        "non-media"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "M83",
+        "Portishead",
+        "Sufjan Stevens",
+        "Men I Trust",
+        "Carpenter Brut",
+        "Perturbator",
+        "Massive Attack",
+        "Max Richter"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.5162649802317995,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "global-screens",
+      "provider": "random-baseline",
+      "tags": [
+        "partially-supported",
+        "non-western"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Tycho",
+        "The Jesus and Mary Chain",
+        "Perturbator",
+        "Joe Hisaishi",
+        "M83",
+        "Sufjan Stevens",
+        "Hans Zimmer",
+        "Kevin Shields"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.4685463540765222,
+      "distinct_genre_ratio": 0.375,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "prestige-tv",
+      "provider": "random-baseline",
+      "tags": [
+        "unsupported",
+        "tv"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Austin Wintory",
+        "Agnes Obel",
+        "The Jesus and Mary Chain",
+        "Max Richter",
+        "Bonobo",
+        "Fleet Foxes",
+        "Joe Hisaishi",
+        "M83"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.6352130207431889,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "pit-lane-style",
+      "provider": "random-baseline",
+      "tags": [
+        "unsupported",
+        "non-media"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Agnes Obel",
+        "Khruangbin",
+        "Austin Wintory",
+        "Max Richter",
+        "The Jesus and Mary Chain",
+        "Cliff Martinez",
+        "Tycho",
+        "Nujabes"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.8333333333333333,
+      "distinct_genre_ratio": 0.75,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "ambiguous-journey",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "ambiguous-name",
+        "single-interest"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Massive Attack",
+        "Portishead",
+        "Tycho",
+        "Men I Trust",
+        "Fleet Foxes",
+        "Sufjan Stevens",
+        "Khruangbin",
+        "Perturbator"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.6666666666666667,
+      "distinct_genre_ratio": 0.625,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "own-wording",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "paraphrased-names"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Sufjan Stevens",
+        "Kavinsky",
+        "Joe Hisaishi",
+        "Portishead",
+        "Ólafur Arnalds",
+        "The Jesus and Mary Chain",
+        "Cliff Martinez",
+        "Hans Zimmer"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.5833333333333334,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "duplicate-input",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "duplicate-input"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Bonobo",
+        "Tycho",
+        "Cliff Martinez",
+        "Agnes Obel",
+        "Kavinsky",
+        "Perturbator",
+        "Max Richter",
+        "Fleet Foxes"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.5833333333333334,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "empty",
+      "provider": "random-baseline",
+      "tags": [
+        "invalid-input"
+      ],
+      "status": "rejected",
+      "outcome": "correct_rejection",
+      "error": "no interests",
+      "unsupported_interests": [],
+      "artists": []
+    },
+    {
+      "profile_id": "over-limit",
+      "provider": "random-baseline",
+      "tags": [
+        "invalid-input",
+        "over-limit"
+      ],
+      "status": "rejected",
+      "outcome": "correct_rejection",
+      "error": "more than 5 interests",
+      "unsupported_interests": [],
+      "artists": []
+    },
+    {
+      "profile_id": "concrete-and-colour",
+      "provider": "random-baseline",
+      "tags": [
+        "partially-supported",
+        "visual-art"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Kavinsky",
+        "Men I Trust",
+        "Kevin Shields",
+        "Austin Wintory",
+        "Perturbator",
+        "M83",
+        "Max Richter",
+        "Massive Attack"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.5833333333333334,
+      "distinct_genre_ratio": 0.5,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "trail-and-meadow",
+      "provider": "random-baseline",
+      "tags": [
+        "partially-supported",
+        "outdoors"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "The Jesus and Mary Chain",
+        "Christopher Larkin",
+        "M83",
+        "Hans Zimmer",
+        "Perturbator",
+        "Bonobo",
+        "Joe Hisaishi",
+        "Portishead"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.4685463540765222,
+      "distinct_genre_ratio": 0.375,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "synth-overlap",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "similar-interests"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Men I Trust",
+        "Fleet Foxes",
+        "The Jesus and Mary Chain",
+        "Portishead",
+        "Max Richter",
+        "Bonobo",
+        "Cliff Martinez",
+        "Khruangbin"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.8333333333333333,
+      "distinct_genre_ratio": 0.75,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "cafe-amelie",
+      "provider": "random-baseline",
+      "tags": [
+        "partially-supported",
+        "unicode"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Perturbator",
+        "Sufjan Stevens",
+        "M83",
+        "Agnes Obel",
+        "Nujabes",
+        "Khruangbin",
+        "Ólafur Arnalds",
+        "Kevin Shields"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.8333333333333333,
+      "distinct_genre_ratio": 0.75,
+      "provider_scores_present": 0
+    },
+    {
+      "profile_id": "space-and-spirits",
+      "provider": "random-baseline",
+      "tags": [
+        "fully-supported",
+        "cross-domain"
+      ],
+      "status": "ok",
+      "outcome": "answered",
+      "error": null,
+      "unsupported_interests": [],
+      "artists": [
+        "Christopher Larkin",
+        "Ólafur Arnalds",
+        "Agnes Obel",
+        "Sufjan Stevens",
+        "Portishead",
+        "Khruangbin",
+        "Hans Zimmer",
+        "Fleet Foxes"
+      ],
+      "artist_count": 8,
+      "within_limit": true,
+      "duplicate_rate": 0.0,
+      "grounded_rate": 1.0,
+      "uncited_rate": 0.0,
+      "invalid_citations": 0,
+      "interest_coverage": 1.0,
+      "available_rate": 1.0,
+      "catalog_found": 8,
+      "catalog_answered": 8,
+      "catalog_errors": 0,
+      "catalog_unmeasured": 0,
+      "genre_entropy": 0.7185463540765221,
+      "distinct_genre_ratio": 0.625,
+      "provider_scores_present": 0
+    }
+  ],
+  "not_measured": {
+    "musical_fit": "Whether artists suit the profile. Needs human judgment (pairwise preference via `evaluation pairs`) - a preference, not accuracy.",
+    "explanation_quality": "Whether the stated reason is convincing. Needs human judgment; grounded_rate only checks that reasons cite real inputs.",
+    "qloo_affinity": "Qloo affinity scores and their calibration. Needs real Qloo responses; no scores are produced or estimated here.",
+    "qloo_entity_resolution": "How often Qloo resolves free-text interests to entities. Needs Qloo search API access.",
+    "novelty_vs_user_history": "Whether artists are new to the user. Needs listening history, which CrossSignal does not collect."
+  },
+  "timing": {
+    "curated": {
+      "note": "wall-clock, environment-dependent; excluded from reproducibility guarantees",
+      "provider_ms_p50": 0.012500007869675756,
+      "provider_ms_p95": 0.032979960087686784,
+      "catalog_ms_p50": null,
+      "catalog_ms_p95": null
+    },
+    "random-baseline": {
+      "note": "wall-clock, environment-dependent; excluded from reproducibility guarantees",
+      "provider_ms_p50": 0.020249979570508003,
+      "provider_ms_p95": 0.030425030854530678,
+      "catalog_ms_p50": null,
+      "catalog_ms_p95": null
+    }
+  }
+}

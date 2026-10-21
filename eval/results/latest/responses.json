@@ -1,0 +1,2156 @@
+{
+  "curated": [
+    {
+      "provider": "curated",
+      "profile_id": "neon-noir",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Massive Attack",
+          "rank": 1,
+          "cited_interests": [
+            "Blade Runner 2049"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kavinsky",
+          "rank": 2,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Bonobo",
+          "rank": 3,
+          "cited_interests": [
+            "Rainy city nights"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Portishead",
+          "rank": 4,
+          "cited_interests": [
+            "Blade Runner 2049"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 5,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Tycho",
+          "rank": 6,
+          "cited_interests": [
+            "Rainy city nights"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "cozy-adventurer",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Christopher Larkin",
+          "rank": 1,
+          "cited_interests": [
+            "Hollow Knight"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Austin Wintory",
+          "rank": 2,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 3,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 4,
+          "cited_interests": [
+            "Hollow Knight"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Ólafur Arnalds",
+          "rank": 5,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Nujabes",
+          "rank": 6,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "single-film",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "M83",
+          "rank": 1,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Hans Zimmer",
+          "rank": 2,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "five-worlds",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "The Jesus and Mary Chain",
+          "rank": 1,
+          "cited_interests": [
+            "Lost in Translation"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Carpenter Brut",
+          "rank": 2,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Khruangbin",
+          "rank": 3,
+          "cited_interests": [
+            "Quiet coffee shops"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 4,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Fleet Foxes",
+          "rank": 5,
+          "cited_interests": [
+            "Cottagecore"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kevin Shields",
+          "rank": 6,
+          "cited_interests": [
+            "Lost in Translation"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 7,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Men I Trust",
+          "rank": 8,
+          "cited_interests": [
+            "Quiet coffee shops"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "melancholy-strings",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Christopher Larkin",
+          "rank": 1,
+          "cited_interests": [
+            "Hollow Knight"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 2,
+          "cited_interests": [
+            "Hollow Knight",
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Agnes Obel",
+          "rank": 3,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "gothic-reader",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Max Richter",
+          "rank": 1,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Agnes Obel",
+          "rank": 2,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [
+        "The Secret History",
+        "Wuthering Heights"
+      ],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "food-and-travel",
+      "status": "unsupported",
+      "artists": [],
+      "unsupported_interests": [
+        "Neapolitan pizza",
+        "Kyoto temples",
+        "Specialty pour-over coffee"
+      ],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "global-screens",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Joe Hisaishi",
+          "rank": 1,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Nujabes",
+          "rank": 2,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [
+        "Bollywood musicals",
+        "K-dramas"
+      ],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "prestige-tv",
+      "status": "unsupported",
+      "artists": [],
+      "unsupported_interests": [
+        "Twin Peaks",
+        "Severance"
+      ],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "pit-lane-style",
+      "status": "unsupported",
+      "artists": [],
+      "unsupported_interests": [
+        "Formula 1",
+        "Streetwear"
+      ],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "ambiguous-journey",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Austin Wintory",
+          "rank": 1,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Ólafur Arnalds",
+          "rank": 2,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "own-wording",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Kavinsky",
+          "rank": 1,
+          "cited_interests": [
+            "drive (2011 film)"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Carpenter Brut",
+          "rank": 2,
+          "cited_interests": [
+            "Cyberpunk 2077 - the game"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 3,
+          "cited_interests": [
+            "drive (2011 film)"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 4,
+          "cited_interests": [
+            "Cyberpunk 2077 - the game"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "duplicate-input",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Kavinsky",
+          "rank": 1,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 2,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "empty",
+      "status": "rejected",
+      "artists": [],
+      "unsupported_interests": [],
+      "error": "no interests"
+    },
+    {
+      "provider": "curated",
+      "profile_id": "over-limit",
+      "status": "rejected",
+      "artists": [],
+      "unsupported_interests": [],
+      "error": "more than 5 interests"
+    },
+    {
+      "provider": "curated",
+      "profile_id": "concrete-and-colour",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Bonobo",
+          "rank": 1,
+          "cited_interests": [
+            "Rainy city nights"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Tycho",
+          "rank": 2,
+          "cited_interests": [
+            "Rainy city nights"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [
+        "Brutalist architecture",
+        "Mark Rothko paintings"
+      ],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "trail-and-meadow",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Fleet Foxes",
+          "rank": 1,
+          "cited_interests": [
+            "Cottagecore"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Sufjan Stevens",
+          "rank": 2,
+          "cited_interests": [
+            "Cottagecore"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [
+        "Long-distance hiking"
+      ],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "synth-overlap",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Kavinsky",
+          "rank": 1,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Carpenter Brut",
+          "rank": 2,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 3,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 4,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "cafe-amelie",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Khruangbin",
+          "rank": 1,
+          "cited_interests": [
+            "Café mornings"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Men I Trust",
+          "rank": 2,
+          "cited_interests": [
+            "Café mornings"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [
+        "Amélie"
+      ],
+      "error": null
+    },
+    {
+      "provider": "curated",
+      "profile_id": "space-and-spirits",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "M83",
+          "rank": 1,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Austin Wintory",
+          "rank": 2,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 3,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Hans Zimmer",
+          "rank": 4,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Ólafur Arnalds",
+          "rank": 5,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Nujabes",
+          "rank": 6,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    }
+  ],
+  "random-baseline": [
+    {
+      "provider": "random-baseline",
+      "profile_id": "neon-noir",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Sufjan Stevens",
+          "rank": 1,
+          "cited_interests": [
+            "Rainy city nights"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Hans Zimmer",
+          "rank": 2,
+          "cited_interests": [
+            "Blade Runner 2049"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kavinsky",
+          "rank": 3,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Fleet Foxes",
+          "rank": 4,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 5,
+          "cited_interests": [
+            "Blade Runner 2049"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Bonobo",
+          "rank": 6,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "The Jesus and Mary Chain",
+          "rank": 7,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Massive Attack",
+          "rank": 8,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "cozy-adventurer",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Fleet Foxes",
+          "rank": 1,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Ólafur Arnalds",
+          "rank": 2,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Sufjan Stevens",
+          "rank": 3,
+          "cited_interests": [
+            "Hollow Knight"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kavinsky",
+          "rank": 4,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "M83",
+          "rank": 5,
+          "cited_interests": [
+            "Hollow Knight"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 6,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Men I Trust",
+          "rank": 7,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 8,
+          "cited_interests": [
+            "Hollow Knight"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "single-film",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Austin Wintory",
+          "rank": 1,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Men I Trust",
+          "rank": 2,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 3,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kavinsky",
+          "rank": 4,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 5,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Khruangbin",
+          "rank": 6,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 7,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "M83",
+          "rank": 8,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "five-worlds",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Bonobo",
+          "rank": 1,
+          "cited_interests": [
+            "Lost in Translation"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Massive Attack",
+          "rank": 2,
+          "cited_interests": [
+            "Cottagecore"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Christopher Larkin",
+          "rank": 3,
+          "cited_interests": [
+            "Quiet coffee shops"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Agnes Obel",
+          "rank": 4,
+          "cited_interests": [
+            "Quiet coffee shops"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Carpenter Brut",
+          "rank": 5,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Nujabes",
+          "rank": 6,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Portishead",
+          "rank": 7,
+          "cited_interests": [
+            "Lost in Translation"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 8,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "melancholy-strings",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Fleet Foxes",
+          "rank": 1,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kavinsky",
+          "rank": 2,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 3,
+          "cited_interests": [
+            "Hollow Knight"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kevin Shields",
+          "rank": 4,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Carpenter Brut",
+          "rank": 5,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Tycho",
+          "rank": 6,
+          "cited_interests": [
+            "Hollow Knight"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Hans Zimmer",
+          "rank": 7,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Sufjan Stevens",
+          "rank": 8,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "gothic-reader",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "M83",
+          "rank": 1,
+          "cited_interests": [
+            "Wuthering Heights"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Nujabes",
+          "rank": 2,
+          "cited_interests": [
+            "The Secret History"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kavinsky",
+          "rank": 3,
+          "cited_interests": [
+            "Wuthering Heights"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Khruangbin",
+          "rank": 4,
+          "cited_interests": [
+            "The Secret History"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Austin Wintory",
+          "rank": 5,
+          "cited_interests": [
+            "The Secret History"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 6,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 7,
+          "cited_interests": [
+            "Dark academia"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Tycho",
+          "rank": 8,
+          "cited_interests": [
+            "Wuthering Heights"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "food-and-travel",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "M83",
+          "rank": 1,
+          "cited_interests": [
+            "Neapolitan pizza"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Portishead",
+          "rank": 2,
+          "cited_interests": [
+            "Specialty pour-over coffee"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Sufjan Stevens",
+          "rank": 3,
+          "cited_interests": [
+            "Kyoto temples"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Men I Trust",
+          "rank": 4,
+          "cited_interests": [
+            "Neapolitan pizza"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Carpenter Brut",
+          "rank": 5,
+          "cited_interests": [
+            "Kyoto temples"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 6,
+          "cited_interests": [
+            "Neapolitan pizza"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Massive Attack",
+          "rank": 7,
+          "cited_interests": [
+            "Specialty pour-over coffee"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 8,
+          "cited_interests": [
+            "Neapolitan pizza"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "global-screens",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Tycho",
+          "rank": 1,
+          "cited_interests": [
+            "Bollywood musicals"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "The Jesus and Mary Chain",
+          "rank": 2,
+          "cited_interests": [
+            "K-dramas"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 3,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 4,
+          "cited_interests": [
+            "Bollywood musicals"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "M83",
+          "rank": 5,
+          "cited_interests": [
+            "K-dramas"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Sufjan Stevens",
+          "rank": 6,
+          "cited_interests": [
+            "K-dramas"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Hans Zimmer",
+          "rank": 7,
+          "cited_interests": [
+            "Bollywood musicals"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kevin Shields",
+          "rank": 8,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "prestige-tv",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Austin Wintory",
+          "rank": 1,
+          "cited_interests": [
+            "Twin Peaks"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Agnes Obel",
+          "rank": 2,
+          "cited_interests": [
+            "Twin Peaks"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "The Jesus and Mary Chain",
+          "rank": 3,
+          "cited_interests": [
+            "Twin Peaks"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 4,
+          "cited_interests": [
+            "Twin Peaks"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Bonobo",
+          "rank": 5,
+          "cited_interests": [
+            "Twin Peaks"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Fleet Foxes",
+          "rank": 6,
+          "cited_interests": [
+            "Twin Peaks"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 7,
+          "cited_interests": [
+            "Twin Peaks"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "M83",
+          "rank": 8,
+          "cited_interests": [
+            "Severance"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "pit-lane-style",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Agnes Obel",
+          "rank": 1,
+          "cited_interests": [
+            "Formula 1"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Khruangbin",
+          "rank": 2,
+          "cited_interests": [
+            "Formula 1"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Austin Wintory",
+          "rank": 3,
+          "cited_interests": [
+            "Formula 1"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 4,
+          "cited_interests": [
+            "Formula 1"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "The Jesus and Mary Chain",
+          "rank": 5,
+          "cited_interests": [
+            "Streetwear"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 6,
+          "cited_interests": [
+            "Formula 1"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Tycho",
+          "rank": 7,
+          "cited_interests": [
+            "Formula 1"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Nujabes",
+          "rank": 8,
+          "cited_interests": [
+            "Formula 1"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "ambiguous-journey",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Massive Attack",
+          "rank": 1,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Portishead",
+          "rank": 2,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Tycho",
+          "rank": 3,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Men I Trust",
+          "rank": 4,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Fleet Foxes",
+          "rank": 5,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Sufjan Stevens",
+          "rank": 6,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Khruangbin",
+          "rank": 7,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 8,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "own-wording",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Sufjan Stevens",
+          "rank": 1,
+          "cited_interests": [
+            "Cyberpunk 2077 - the game"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kavinsky",
+          "rank": 2,
+          "cited_interests": [
+            "drive (2011 film)"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 3,
+          "cited_interests": [
+            "Cyberpunk 2077 - the game"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Portishead",
+          "rank": 4,
+          "cited_interests": [
+            "Cyberpunk 2077 - the game"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Ólafur Arnalds",
+          "rank": 5,
+          "cited_interests": [
+            "drive (2011 film)"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "The Jesus and Mary Chain",
+          "rank": 6,
+          "cited_interests": [
+            "drive (2011 film)"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 7,
+          "cited_interests": [
+            "drive (2011 film)"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Hans Zimmer",
+          "rank": 8,
+          "cited_interests": [
+            "drive (2011 film)"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "duplicate-input",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Bonobo",
+          "rank": 1,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Tycho",
+          "rank": 2,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 3,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Agnes Obel",
+          "rank": 4,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kavinsky",
+          "rank": 5,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 6,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 7,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Fleet Foxes",
+          "rank": 8,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "empty",
+      "status": "rejected",
+      "artists": [],
+      "unsupported_interests": [],
+      "error": "no interests"
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "over-limit",
+      "status": "rejected",
+      "artists": [],
+      "unsupported_interests": [],
+      "error": "more than 5 interests"
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "concrete-and-colour",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Kavinsky",
+          "rank": 1,
+          "cited_interests": [
+            "Brutalist architecture"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Men I Trust",
+          "rank": 2,
+          "cited_interests": [
+            "Brutalist architecture"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kevin Shields",
+          "rank": 3,
+          "cited_interests": [
+            "Rainy city nights"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Austin Wintory",
+          "rank": 4,
+          "cited_interests": [
+            "Brutalist architecture"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 5,
+          "cited_interests": [
+            "Rainy city nights"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "M83",
+          "rank": 6,
+          "cited_interests": [
+            "Mark Rothko paintings"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 7,
+          "cited_interests": [
+            "Rainy city nights"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Massive Attack",
+          "rank": 8,
+          "cited_interests": [
+            "Brutalist architecture"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "trail-and-meadow",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "The Jesus and Mary Chain",
+          "rank": 1,
+          "cited_interests": [
+            "Cottagecore"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Christopher Larkin",
+          "rank": 2,
+          "cited_interests": [
+            "Cottagecore"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "M83",
+          "rank": 3,
+          "cited_interests": [
+            "Cottagecore"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Hans Zimmer",
+          "rank": 4,
+          "cited_interests": [
+            "Long-distance hiking"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Perturbator",
+          "rank": 5,
+          "cited_interests": [
+            "Cottagecore"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Bonobo",
+          "rank": 6,
+          "cited_interests": [
+            "Long-distance hiking"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Joe Hisaishi",
+          "rank": 7,
+          "cited_interests": [
+            "Long-distance hiking"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Portishead",
+          "rank": 8,
+          "cited_interests": [
+            "Long-distance hiking"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "synth-overlap",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Men I Trust",
+          "rank": 1,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Fleet Foxes",
+          "rank": 2,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "The Jesus and Mary Chain",
+          "rank": 3,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Portishead",
+          "rank": 4,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Max Richter",
+          "rank": 5,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Bonobo",
+          "rank": 6,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Cliff Martinez",
+          "rank": 7,
+          "cited_interests": [
+            "Drive"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Khruangbin",
+          "rank": 8,
+          "cited_interests": [
+            "Cyberpunk 2077"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "cafe-amelie",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Perturbator",
+          "rank": 1,
+          "cited_interests": [
+            "Amélie"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Sufjan Stevens",
+          "rank": 2,
+          "cited_interests": [
+            "Amélie"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "M83",
+          "rank": 3,
+          "cited_interests": [
+            "Amélie"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Agnes Obel",
+          "rank": 4,
+          "cited_interests": [
+            "Amélie"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Nujabes",
+          "rank": 5,
+          "cited_interests": [
+            "Café mornings"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Khruangbin",
+          "rank": 6,
+          "cited_interests": [
+            "Amélie"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Ólafur Arnalds",
+          "rank": 7,
+          "cited_interests": [
+            "Amélie"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Kevin Shields",
+          "rank": 8,
+          "cited_interests": [
+            "Café mornings"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    },
+    {
+      "provider": "random-baseline",
+      "profile_id": "space-and-spirits",
+      "status": "ok",
+      "artists": [
+        {
+          "name": "Christopher Larkin",
+          "rank": 1,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Ólafur Arnalds",
+          "rank": 2,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Agnes Obel",
+          "rank": 3,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Sufjan Stevens",
+          "rank": 4,
+          "cited_interests": [
+            "Journey"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Portishead",
+          "rank": 5,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Khruangbin",
+          "rank": 6,
+          "cited_interests": [
+            "Studio Ghibli"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Hans Zimmer",
+          "rank": 7,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        },
+        {
+          "name": "Fleet Foxes",
+          "rank": 8,
+          "cited_interests": [
+            "Interstellar"
+          ],
+          "score": null,
+          "score_kind": null
+        }
+      ],
+      "unsupported_interests": [],
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+[theme]
+base = "dark"
+primaryColor = "#A78BFA"
+backgroundColor = "#0B0B12"
+secondaryBackgroundColor = "#171724"
+textColor = "#ECECF4"
+linkColor = "#C4B5FD"
+borderColor = "#2A2A3C"
+baseRadius = "0.75rem"
+headingFontWeights = [800, 700, 650]
+
+[client]
+toolbarMode = "minimal"

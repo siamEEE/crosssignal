@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "description": "Hand-written non-musical cultural-interest profiles for evaluating CrossSignal recommendation providers. Profiles are synthetic test inputs, not real users. `curated_id` links an interest to the demo CuratedProvider when one exists; it carries no information about which artists are correct. `expect` states whether a well-behaved provider should answer or reject the request under the app's input contract (1-5 interests).",
+  "profiles": [
+    {
+      "id": "neon-noir",
+      "description": "Loves moody neo-noir films and walking through a city at night in the rain.",
+      "interests": [
+        {"name": "Blade Runner 2049", "domain": "film", "curated_id": "blade-runner-2049"},
+        {"name": "Drive", "domain": "film", "curated_id": "drive"},
+        {"name": "Rainy city nights", "domain": "aesthetic", "curated_id": "rainy-city-nights"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "cross-domain"]
+    },
+    {
+      "id": "cozy-adventurer",
+      "description": "Plays atmospheric indie games and rewatches hand-drawn animated films.",
+      "interests": [
+        {"name": "Hollow Knight", "domain": "game", "curated_id": "hollow-knight"},
+        {"name": "Journey", "domain": "game", "curated_id": "journey"},
+        {"name": "Studio Ghibli", "domain": "film", "curated_id": "studio-ghibli"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "cross-domain"]
+    },
+    {
+      "id": "single-film",
+      "description": "Only shares one favourite film.",
+      "interests": [
+        {"name": "Interstellar", "domain": "film", "curated_id": "interstellar"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "single-interest"]
+    },
+    {
+      "id": "five-worlds",
+      "description": "Wide-ranging tastes at the five-interest limit.",
+      "interests": [
+        {"name": "Lost in Translation", "domain": "film", "curated_id": "lost-in-translation"},
+        {"name": "Cyberpunk 2077", "domain": "game", "curated_id": "cyberpunk-2077"},
+        {"name": "Quiet coffee shops", "domain": "aesthetic", "curated_id": "quiet-coffee-shops"},
+        {"name": "Dark academia", "domain": "aesthetic", "curated_id": "dark-academia"},
+        {"name": "Cottagecore", "domain": "aesthetic", "curated_id": "cottagecore"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "max-interests", "cross-domain"]
+    },
+    {
+      "id": "melancholy-strings",
+      "description": "Drawn to melancholic, candlelit, ruined-world atmospheres.",
+      "interests": [
+        {"name": "Hollow Knight", "domain": "game", "curated_id": "hollow-knight"},
+        {"name": "Dark academia", "domain": "aesthetic", "curated_id": "dark-academia"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "shared-artist"]
+    },
+    {
+      "id": "gothic-reader",
+      "description": "Reads gothic and campus novels and dresses the part.",
+      "interests": [
+        {"name": "Dark academia", "domain": "aesthetic", "curated_id": "dark-academia"},
+        {"name": "The Secret History", "domain": "book"},
+        {"name": "Wuthering Heights", "domain": "book"}
+      ],
+      "expect": "recommend",
+      "tags": ["partially-supported", "books"]
+    },
+    {
+      "id": "food-and-travel",
+      "description": "Plans trips around food and quiet temples.",
+      "interests": [
+        {"name": "Neapolitan pizza", "domain": "food"},
+        {"name": "Kyoto temples", "domain": "place"},
+        {"name": "Specialty pour-over coffee", "domain": "food"}
+      ],
+      "expect": "recommend",
+      "tags": ["unsupported", "non-media"]
+    },
+    {
+      "id": "global-screens",
+      "description": "Watches Hindi musicals, Korean dramas and Japanese animation.",
+      "interests": [
+        {"name": "Bollywood musicals", "domain": "film"},
+        {"name": "K-dramas", "domain": "tv"},
+        {"name": "Studio Ghibli", "domain": "film", "curated_id": "studio-ghibli"}
+      ],
+      "expect": "recommend",
+      "tags": ["partially-supported", "non-western"]
+    },
+    {
+      "id": "prestige-tv",
+      "description": "Only watches surreal prestige television.",
+      "interests": [
+        {"name": "Twin Peaks", "domain": "tv"},
+        {"name": "Severance", "domain": "tv"}
+      ],
+      "expect": "recommend",
+      "tags": ["unsupported", "tv"]
+    },
+    {
+      "id": "pit-lane-style",
+      "description": "Follows Formula 1 and streetwear drops.",
+      "interests": [
+        {"name": "Formula 1", "domain": "sport"},
+        {"name": "Streetwear", "domain": "fashion"}
+      ],
+      "expect": "recommend",
+      "tags": ["unsupported", "non-media"]
+    },
+    {
+      "id": "ambiguous-journey",
+      "description": "Means the 2012 video game Journey, not the rock band.",
+      "interests": [
+        {"name": "Journey", "domain": "game", "curated_id": "journey"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "ambiguous-name", "single-interest"]
+    },
+    {
+      "id": "own-wording",
+      "description": "Describes familiar interests in their own words.",
+      "interests": [
+        {"name": "drive (2011 film)", "domain": "film", "curated_id": "drive"},
+        {"name": "Cyberpunk 2077 - the game", "domain": "game", "curated_id": "cyberpunk-2077"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "paraphrased-names"]
+    },
+    {
+      "id": "duplicate-input",
+      "description": "Accidentally lists the same film twice.",
+      "interests": [
+        {"name": "Drive", "domain": "film", "curated_id": "drive"},
+        {"name": "Drive", "domain": "film", "curated_id": "drive"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "duplicate-input"]
+    },
+    {
+      "id": "empty",
+      "description": "Submits without choosing anything.",
+      "interests": [],
+      "expect": "reject",
+      "tags": ["invalid-input"]
+    },
+    {
+      "id": "over-limit",
+      "description": "Selects six interests, one more than the app allows.",
+      "interests": [
+        {"name": "Blade Runner 2049", "domain": "film", "curated_id": "blade-runner-2049"},
+        {"name": "Interstellar", "domain": "film", "curated_id": "interstellar"},
+        {"name": "Drive", "domain": "film", "curated_id": "drive"},
+        {"name": "Journey", "domain": "game", "curated_id": "journey"},
+        {"name": "Hollow Knight", "domain": "game", "curated_id": "hollow-knight"},
+        {"name": "Cottagecore", "domain": "aesthetic", "curated_id": "cottagecore"}
+      ],
+      "expect": "reject",
+      "tags": ["invalid-input", "over-limit"]
+    },
+    {
+      "id": "concrete-and-colour",
+      "description": "Loves brutalist buildings and colour-field painting on grey evenings.",
+      "interests": [
+        {"name": "Brutalist architecture", "domain": "architecture"},
+        {"name": "Mark Rothko paintings", "domain": "art"},
+        {"name": "Rainy city nights", "domain": "aesthetic", "curated_id": "rainy-city-nights"}
+      ],
+      "expect": "recommend",
+      "tags": ["partially-supported", "visual-art"]
+    },
+    {
+      "id": "trail-and-meadow",
+      "description": "Hikes long trails and daydreams about country cottages.",
+      "interests": [
+        {"name": "Cottagecore", "domain": "aesthetic", "curated_id": "cottagecore"},
+        {"name": "Long-distance hiking", "domain": "activity"}
+      ],
+      "expect": "recommend",
+      "tags": ["partially-supported", "outdoors"]
+    },
+    {
+      "id": "synth-overlap",
+      "description": "Two interests that share a retro-synth mood.",
+      "interests": [
+        {"name": "Drive", "domain": "film", "curated_id": "drive"},
+        {"name": "Cyberpunk 2077", "domain": "game", "curated_id": "cyberpunk-2077"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "similar-interests"]
+    },
+    {
+      "id": "cafe-amelie",
+      "description": "Romanticises Parisian cafés; uses accented names.",
+      "interests": [
+        {"name": "Amélie", "domain": "film"},
+        {"name": "Café mornings", "domain": "aesthetic", "curated_id": "quiet-coffee-shops"}
+      ],
+      "expect": "recommend",
+      "tags": ["partially-supported", "unicode"]
+    },
+    {
+      "id": "space-and-spirits",
+      "description": "Cosmic films, wordless games and animated folklore.",
+      "interests": [
+        {"name": "Interstellar", "domain": "film", "curated_id": "interstellar"},
+        {"name": "Journey", "domain": "game", "curated_id": "journey"},
+        {"name": "Studio Ghibli", "domain": "film", "curated_id": "studio-ghibli"}
+      ],
+      "expect": "recommend",
+      "tags": ["fully-supported", "cross-domain"]
+    }
+  ]
+}
