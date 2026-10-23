@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArrowDown, ArrowUp, Check, Copy, Download, ListMusic, Plus, X } from 'lucide-react'
+import { ArrowDown, ArrowUp, Check, Copy, Download, ListMusic, Plus, Trash2, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { SectionTitle } from '@/components/explore'
 import { PlaylistContext, usePlaylist } from '@/lib/playlist-context'
@@ -30,6 +30,7 @@ export function PlaylistProvider({ children }: { children: React.ReactNode }) {
     remove: key => setPlaylist(current => removeTrack(current, key)),
     move: (from, to) => setPlaylist(current => moveTrack(current, from, to)),
     rename: name => setPlaylist(current => renamePlaylist(current, name)),
+    clear: () => { setPlaylist(current => ({ ...current, tracks: [] })); setNotice('Playlist cleared.') },
   }}>{children}</PlaylistContext.Provider>
 }
 
@@ -43,8 +44,15 @@ export function AddToPlaylist({ track }: { track: Track }) {
 }
 
 export function PlaylistSection() {
-  const { playlist, remove, move, rename, notice, persistent } = usePlaylist()
+  const { playlist, remove, move, rename, clear, notice, persistent } = usePlaylist()
   const [message, setMessage] = useState('')
+  function clearAll() {
+    if (!playlist.tracks.length) return
+    if (window.confirm(`Remove all ${playlist.tracks.length} songs from your playlist? This cannot be undone.`)) {
+      clear()
+      setMessage('Playlist cleared.')
+    }
+  }
   async function copy() {
     try { await navigator.clipboard.writeText(tracklist(playlist)); setMessage('Tracklist copied.') }
     catch { setMessage('Copy is unavailable in this browser. You can export CSV instead.') }
@@ -70,6 +78,7 @@ export function PlaylistSection() {
         </label>
         <Button variant="outline" onClick={copy} disabled={!playlist.tracks.length}><Copy />Copy tracklist</Button>
         <Button variant="outline" onClick={download} disabled={!playlist.tracks.length}><Download />Export CSV</Button>
+        <Button variant="outline" onClick={clearAll} disabled={!playlist.tracks.length}><Trash2 />Clear Playlist</Button>
       </div>
       <p className="mt-3 text-xs text-muted">Saved in this browser. Apple Music opens the catalog song; other services open searches. No external playlists are created.</p>
       {!persistent && <p role="alert" className="mt-3 text-sm">Browser storage is unavailable. Export your playlist before closing this page.</p>}
