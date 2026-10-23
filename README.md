@@ -110,4 +110,3 @@ See [evaluation notes](docs/EVALUATION.md), [Qloo integration](docs/QLOO_INTEGRA
 
 Developed as a personal project for the **Qloo Agentic Hackathon 2026**. Qloo supplies cultural associations; Apple's iTunes catalog provides track metadata and short previews. CrossSignal is not affiliated with or endorsed by the linked music services.
 
-**Security:** API keys belong only in server-side environment variables. Do not include credentials in commits, screenshots, browser code, or demo recordings.
