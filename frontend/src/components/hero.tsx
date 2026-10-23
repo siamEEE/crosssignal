@@ -1,84 +1,21 @@
-import { motion } from 'motion/react'
-import { ArrowDown, MessageSquareText } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { CATEGORY_STYLE } from '@/lib/categories'
+import { ArrowDown, ArrowUpRight, Disc3 } from 'lucide-react'
 import type { Category } from '@/lib/types'
-import { cn } from '@/lib/utils'
-
 export function Hero({ categories }: { categories: Category[] }) {
-  const strip = categories.length ? categories : []
-  return (
-    <section id="top" className="editorial-hero relative overflow-hidden">
-      <div className="record-sleeve" aria-hidden="true">
-        <div className="vinyl-record"><span>CS<br />SIDE A</span></div>
-        <p>SELECTED BY YOUR WORLD<br />PLAYED IN YOUR OWN KEY</p>
-      </div>
-      <div className="mx-auto max-w-6xl px-4 pt-12 pb-10 md:pt-20">
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-5 inline-flex items-center gap-2 rounded-full border border-ink/15 bg-ivory-2 px-3 py-1 text-xs font-semibold tracking-wide"
-        >
-          <span className="size-1.5 rounded-full bg-coral" />
-          THE CROSSSIGNAL EDIT · CULTURE INTO MUSIC
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.05, duration: 0.5 }}
-          className="relative max-w-4xl font-display text-[clamp(2.75rem,9vw,6.5rem)] leading-[0.92] font-black tracking-[-0.035em] text-balance"
-        >
-          Good taste.{' '}New{' '}
-          <span className="relative inline-block italic">
-            <span className="relative z-10">frequencies</span>
-            <span aria-hidden className="absolute inset-x-0 bottom-[0.08em] -z-0 h-[0.32em] -rotate-1 rounded-sm bg-lime" />
-          </span>
-          .
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.12, duration: 0.5 }}
-          className="mt-6 max-w-2xl text-lg leading-relaxed text-ink/75"
-        >
-          From the films you replay to the worlds you get lost in.
-          Pick your cultural touchstones, shape the sound, then tune your own radio.
-          Discover real artists with a reason behind every recommendation.
-        </motion.p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button variant="accent" size="lg" asChild>
-            <a href="#explore">
-              Start with your culture <ArrowDown />
-            </a>
-          </Button>
-          <Button size="lg" variant="outline" asChild>
-            <a href="#describe">
-              <MessageSquareText /> Describe your world
-            </a>
-          </Button>
-        </div>
-        <p className="mt-6 text-xs font-bold tracking-widest uppercase">01 Pick culture / 02 Shape sound / 03 Tune My Radio</p>
-      </div>
-      {strip.length > 0 && (
-        <div className="border-y-2 border-ink bg-ink py-3 text-ivory" aria-hidden>
-          <div className="flex w-max animate-marquee gap-3">
-            {[...strip, ...strip, ...strip, ...strip].map((category, i) => {
-              const style = CATEGORY_STYLE[category.id]
-              const Icon = style?.icon
-              return (
-                <span key={`${category.id}-${i}`} className="flex items-center gap-2 px-3 font-display text-xl italic">
-                  {Icon && (
-                    <span className={cn('grid size-7 place-items-center rounded-full text-ink', style.fill)}>
-                      <Icon className="size-4" />
-                    </span>
-                  )}
-                  {category.label}
-                </span>
-              )
-            })}
-          </div>
-        </div>
-      )}
-    </section>
-  )
+ return <section id="top" className="editorial-hero">
+ <div className="hero-layout mx-auto max-w-6xl px-4"><div className="hero-copy">
+ <p className="eyebrow">An independent station for your imagination</p>
+ <h1>Your world.<br />A different <em>soundtrack.</em></h1>
+ <p className="hero-deck">The films that stay with you. The games you disappear into. Turn the things you love into music you haven&apos;t met yet.</p>
+ <a href="#explore" className="hero-start">Find your frequency <ArrowDown size={19} /></a>
+ </div><div className="signal-art" aria-hidden="true">
+ <div className="art-caption">CROSSSIGNAL RECORD CLUB <ArrowUpRight size={18} /></div>
+ <div className="art-orbit orbit-one" /><div className="art-orbit orbit-two" />
+ <div className="art-disc"><Disc3 /><span>YOUR WORLD / ON REPEAT</span></div>
+ <span className="art-sticker">A little culture.<br /><em>A lot of possibility.</em></span>
+ <span className="art-bottom">SIDE A / OPEN TO DISCOVERY</span></div></div>
+ <div className="journey-strip"><div className="mx-auto flex max-w-6xl flex-wrap px-4">
+ <a href="#explore"><b>01</b> Collect your culture <ArrowUpRight size={15} /></a>
+ <a href="#sound"><b>02</b> Shape your sound <span>optional</span></a>
+ <a href="#tune"><b>03</b> Tune My Radio <ArrowUpRight size={15} /></a>
+ <span className="journey-note">{categories.length || 8} cultural worlds. Your own way in.</span></div></div></section>
 }

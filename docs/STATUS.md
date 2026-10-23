@@ -1,6 +1,40 @@
 
 # CrossSignal Development Status
 
+
+## Editorial redesign implementation (2026-10-23)
+
+- Completed the user-authorized React visual redesign: paper masthead with
+  original CSS record artwork, a three-step journey, search-first culture
+  browser, illustrated asymmetric collections, green description section,
+  lilac music controls and artwork-led radio results. Small-phone navigation
+  and masthead are condensed; reduced motion and keyboard focus remain.
+- All eight backend cultural categories and 13 genre families retained,
+  including expandable rock/metal and advanced subgenres. No fabricated
+  Qloo results, new integrations, dependencies or backend changes.
+- Every track offers explicitly labeled artist + track searches on YouTube,
+  YouTube Music and Spotify. Exact Apple Music links and previews retained.
+- Independent saved-song rotation persists locally (100-song cap), separate
+  from the three liked artists steering Qloo remixes; malformed storage and
+  unsafe restored Apple links are rejected. Favorites remain available on
+  reload before tuning another station.
+- Featured selections can be retried when the query/category is unchanged.
+  Corrected empty-result advice: open-to genres still filter the search.
+- Validation: 265 pytest tests passed; 16 frontend tests passed; Ruff,
+  frontend lint, TypeScript and Vite production build passed. Headless Edge
+  checked 375/768/1440 px: no page overflow or app exceptions, nine category
+  buttons (including Everything), 13 genres, search before collections,
+  expandable Metalcore. Local screenshots are in ignored `.review/`.
+- Python validation uses a workspace UV_CACHE_DIR and a fresh workspace
+  pytest basetemp because the default cache/temp paths were inaccessible.
+- Remaining: live Qloo/catalog calls were not made and no credentials were
+  read; local browser checks cover the honest unconfigured state. Results
+  interactions are covered by logic tests, not a live-provider browser run.
+  Real-device audio, screen-reader checks and Docker image build remain
+  unverified. Existing Starlette deprecation and ~521 kB JS bundle warning.
+- Docker deployment recipe unchanged; local validation artifacts excluded
+  from Git and Docker context. No commit, push or deployment performed.
+
 ## Current phase
 Redesign and correctness sprint resumed by Codex (2026-10-21); changes remain
 uncommitted on `feat/qloo-live`, with checkpoint `49cf591` preserved.

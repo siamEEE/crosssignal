@@ -25,16 +25,16 @@ export function Tray({
     <aside
       aria-label="Your cultural profile"
       id="tune"
-      className="sticky bottom-0 z-20 border-t-2 border-lime bg-ink text-ivory shadow-pop"
+      className="profile-tray sticky bottom-0 z-20 border-t-2 border-lime bg-ink text-ivory shadow-pop"
     >
       <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-3 md:flex-row md:items-center">
         <div className="min-w-0 flex-1">
-          <p className="text-[0.7rem] font-bold tracking-[0.2em] text-muted uppercase">
+          <p className="text-[0.7rem] font-bold tracking-[0.2em] text-ivory/65 uppercase">
             Your signal · {signals.length}/{MAX_SIGNALS}
           </p>
           <ul className="mt-1.5 flex gap-1.5 overflow-x-auto pb-1 [scrollbar-width:thin]">
             {signals.length === 0 && (
-              <li className="text-sm text-muted">Nothing yet. Add films, games, books, places or moods.</li>
+              <li className="text-sm text-ivory/70">Nothing yet. Add films, games, books, places or moods.</li>
             )}
             <AnimatePresence initial={false}>
               {signals.map((signal) => {
@@ -85,7 +85,7 @@ export function Tray({
           </ul>
         </div>
         <div className="flex items-center gap-3">
-          {blocker && <p className="max-w-xs text-xs text-muted md:text-right">{blocker}</p>}
+          {blocker && <p className="max-w-xs text-xs text-ivory/70 md:text-right">{blocker}</p>}
           <Button variant="accent" size="lg" onClick={onTune} disabled={!!blocker || loading} className="shrink-0">
             {loading ? <Spinner /> : <Radio />} {loading ? 'Tuning in…' : 'Tune My Radio'}
           </Button>

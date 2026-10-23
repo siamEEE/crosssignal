@@ -20,3 +20,9 @@ frontend/coverage
 
 eval/results
 *.log
+
+# Local validation tools and caches
+.review
+.test-tmp*
+.uv-cache
+node_modules

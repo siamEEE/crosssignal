@@ -75,7 +75,7 @@ export function Describe({
   return (
     <section id="describe" className="scroll-mt-20 bg-ink py-16 text-ivory">
       <div className="mx-auto max-w-6xl px-4">
-        <SectionTitle kicker="02 · Describe" title="Or just tell us about your world" />
+        <SectionTitle kicker="01 / Another way in" title="Send a note to the DJ." />
         <p className="mt-4 max-w-2xl text-ivory/70">
           CrossSignal pulls out titles, places and moods, looks each one up in Qloo and waits
           for you to confirm. Nothing joins your profile until you tap it.
@@ -101,7 +101,7 @@ export function Describe({
                 {loading ? <Spinner /> : <Wand2 />} Read my description
               </Button>
               <span className="text-xs text-ivory/55">
-                Rule-based reader, no AI model ({text.length}/600)
+                Name titles explicitly; confirm matches below ({text.length}/600)
               </span>
             </div>
             <div className="mt-5 flex flex-wrap gap-2">

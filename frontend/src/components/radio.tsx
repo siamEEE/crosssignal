@@ -10,6 +10,7 @@ import {
   Shuffle,
   ThumbsDown,
   ThumbsUp,
+  Heart,
   Undo2,
 } from 'lucide-react'
 import { SectionTitle } from '@/components/explore'
@@ -30,6 +31,9 @@ import { styleFor } from '@/lib/categories'
 import type { Profile } from '@/lib/profile'
 import type { Artist, DiscoverResult, Track } from '@/lib/types'
 import { cn } from '@/lib/utils'
+import { trackSearches } from '@/lib/listening'
+import { useState, useEffect } from 'react'
+import { loadFavorites, saveFavorites, toggleFavorite } from '@/lib/favorites'
 
 export type RadioState =
   | { status: 'idle' }
@@ -60,17 +64,19 @@ export function RadioSection({
   onRetry: () => void
   stale: boolean
 }) {
-  if (state.status === 'idle') return null
-  const result = state.status === 'done' ? state.result : state.previous
+  const [favorites, setFavorites] = useState(loadFavorites)
+  useEffect(() => saveFavorites(favorites), [favorites])
+  if (state.status === 'idle' && !favorites.length) return null
+  const result = state.status === 'done' ? state.result : state.status === 'idle' ? null : state.previous
   const hidden = new Set(profile.disliked.map((d) => d.id))
   const likedIds = new Set(profile.liked.map((l) => l.id))
   const artists = result?.artists.filter((a) => !hidden.has(a.id)) ?? []
   const feedbackCount = profile.liked.length + profile.disliked.length
 
   return (
-    <section id="radio" className="scroll-mt-20 border-t-2 border-ink bg-ivory-2 py-16">
+    <section id="radio" className="radio-section scroll-mt-20 py-16">
       <div className="mx-auto max-w-6xl px-4">
-        <SectionTitle kicker="04 · Radio" title={result ? statusHeadline(result) : 'Tuning in…'}>
+        <SectionTitle kicker="03 / Now broadcasting" title={result ? statusHeadline(result) : state.status === 'idle' ? 'Your saved rotation' : state.status === 'error' ? 'A break in the signal' : 'Tuning in…'}>
           {result && (
             <div className="flex flex-wrap gap-2">
               <Button variant="accent" onClick={onRemix} disabled={state.status === 'loading'}>
@@ -87,6 +93,31 @@ export function RadioSection({
             </div>
           )}
         </SectionTitle>
+        {favorites.length > 0 && (
+          <details className="mt-6 border-y border-ink/25 py-4">
+            <summary className="cursor-pointer font-semibold">
+              Saved rotation / {favorites.length} favorites
+            </summary>
+            <p className="mt-2 text-xs text-muted">
+              Saved in this browser. Favorites stay separate from your remix feedback.
+            </p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {favorites.map(f => (
+                <li key={f.track.url} className="flex items-center gap-2 border border-ink/15 bg-ivory p-3">
+                  <a className="min-w-0 flex-1 text-sm font-semibold" href={f.track.url}
+                    target="_blank" rel="noopener noreferrer">
+                    {f.artist} / {f.track.title}
+                  </a>
+                  <button type="button" className="cursor-pointer p-2 text-xs underline"
+                    aria-label={`Remove ${f.track.title} from favorites`}
+                    onClick={() => setFavorites(current => toggleFavorite(current, f))}>
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
         {stale && state.status !== 'loading' && (
           <p role="status" className="mt-5 border-l-4 border-coral bg-coral/10 p-4 text-sm font-semibold">
             Your taste profile has changed. Tune My Radio to hear a fresh selection; these artists are from your previous tuning.
@@ -119,7 +150,7 @@ export function RadioSection({
                 : 'CrossSignal shows only artists that passed the checks.'}
             </p>
             <p className="mt-1 text-sm text-ink/70">
-              Try loosening a filter: move a genre from preferred to open-to, pick “Any era”,
+              Try removing a genre preference, pick “Any era”,
               switch discovery to Balanced, or dig deeper for Qloo&apos;s next page.
             </p>
           </div>
@@ -138,6 +169,8 @@ export function RadioSection({
                   transition={{ delay: Math.min(i * 0.06, 0.4), type: 'spring', stiffness: 220, damping: 26 }}
                 >
                   <ArtistCard
+                    saved={favorites.some(f => f.track.url === artist.tracks[0]?.url)}
+                    onSave={() => { if (artist.tracks[0]) setFavorites(current => toggleFavorite(current, { artist: artist.name, track: artist.tracks[0] })) }}
                     artist={artist}
                     era={result?.preferences.era ?? null}
                     liked={likedIds.has(artist.id)}
@@ -200,6 +233,8 @@ function Loading() {
 }
 
 function ArtistCard({
+  saved,
+  onSave,
   artist,
   era,
   liked,
@@ -207,6 +242,8 @@ function ArtistCard({
   onDislike,
   onMoreLike,
 }: {
+  saved: boolean
+  onSave: () => void
   artist: Artist
   era: string | null
   liked: boolean
@@ -220,8 +257,8 @@ function ArtistCard({
   const genre = genreLine(artist)
   const eraText = eraLine(artist, era)
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border-2 border-ink bg-ivory shadow-[6px_6px_0_var(--color-ink)]">
-      <div className={cn('relative aspect-[16/9] overflow-hidden', style.tint)}>
+    <article className="record-card flex h-full flex-col overflow-hidden bg-ivory">
+      <div className={cn('record-art relative aspect-[4/3] overflow-hidden', style.tint)}>
         {cover ? (
           <img src={cover} alt={`Artwork for ${artist.name}`} loading="lazy" className="size-full object-cover" />
         ) : (
@@ -274,15 +311,6 @@ function ArtistCard({
           {genre.text}
         </p>
         {eraText && <p className="text-xs text-muted">{eraText}</p>}
-        <div className="flex flex-wrap gap-2 text-xs font-semibold" aria-label={`Find ${artist.name} on music services`}>
-          {[
-            ['YouTube', `https://www.youtube.com/results?search_query=${encodeURIComponent(artist.name + ' music')}`],
-            ['YouTube Music', `https://music.youtube.com/search?q=${encodeURIComponent(artist.name)}`],
-            ['Spotify', `https://open.spotify.com/search/${encodeURIComponent(artist.name)}`],
-          ].map(([label, href]) => (
-            <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="rounded-full border border-ink/25 px-3 py-2 hover:bg-ink hover:text-ivory">{label} ↗</a>
-          ))}
-        </div>
 
         <ol className="mt-1 space-y-1.5">
           {artist.tracks.map((track) => (
@@ -291,6 +319,7 @@ function ArtistCard({
         </ol>
 
         <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-ink/10 pt-3">
+          <Button size="sm" variant={saved ? 'accent' : 'outline'} onClick={onSave} disabled={!artist.tracks.length} aria-pressed={saved}><Heart className={saved ? 'fill-current' : ''} />{saved ? 'Saved' : 'Save favorite'}</Button>
           <Button
             size="sm"
             variant={liked ? 'accent' : 'outline'}
@@ -298,7 +327,7 @@ function ArtistCard({
             aria-pressed={liked}
             aria-label={liked ? `Stop steering with ${artist.name}` : `Like ${artist.name} to steer the next remix`}
           >
-            <ThumbsUp /> {liked ? 'Steering' : 'Like'}
+            <ThumbsUp /> {liked ? 'Steering / liked' : 'Like & steer'}
           </Button>
           <Button size="sm" variant="outline" onClick={onDislike} aria-label={`Hide ${artist.name} and exclude from remixes`}>
             <ThumbsDown /> Not for me
@@ -314,10 +343,11 @@ function ArtistCard({
 
 function TrackRow({ track }: { track: Track }) {
   const { current, playing, failed, toggle } = usePlayer()
+  const [expanded, setExpanded] = useState(false)
   const active = current?.url === track.url
   const meta = [track.album, track.year].filter(Boolean).join(' · ')
   return (
-    <li className="flex items-center gap-3 rounded-xl p-1.5 transition hover:bg-ink/5">
+    <li className="rounded-xl p-2 transition hover:bg-ink/5"><div className="flex items-center gap-3">
       <button
         type="button"
         disabled={!track.preview_url}
@@ -351,7 +381,23 @@ function TrackRow({ track }: { track: Track }) {
         aria-label={`Open ${track.title} on Apple Music`}
       >
         <ExternalLink className="size-4" />
-      </a>
+      </a></div>
+      <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="mt-2 ml-14 cursor-pointer text-xs font-semibold underline underline-offset-4">{expanded ? 'Hide listening options' : 'Listen elsewhere'}</button>
+      {expanded && (
+        <div className="mt-3 border-t border-ink/15 pt-3">
+          <p className="mb-2 text-xs text-muted">
+            Search for {track.artist} + {track.title}. Results may vary.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {trackSearches(track).map(({ label, href }) => (
+              <a key={label} href={href} target="_blank" rel="noopener noreferrer"
+                className="rounded-full border border-ink/25 px-3 py-2 text-xs font-semibold hover:bg-ink hover:text-ivory">
+                {label} search
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </li>
   )
 }

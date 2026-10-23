@@ -75,49 +75,17 @@ export function Explore({
     autoAdd.current = item.query
     setCategory(item.category)
     setQuery(item.query)
+    setRetry((n) => n + 1)
     document.getElementById('culture-search')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   return (
     <section id="explore" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-14">
-      <SectionTitle kicker="01 · Explore" title="Start from what you love" />
-
-      {/* Featured collections: inspiration only, resolved live on click. */}
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {collections.map((collection, i) => (
-          <motion.article
-            key={collection.id}
-            initial={{ opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.05 }}
-            className={cn(
-              'flex flex-col rounded-[var(--radius-card)] border-2 border-ink p-4 shadow-[4px_4px_0_var(--color-ink)]',
-              ACCENT_FILL[collection.accent] ?? ACCENT_FILL.ink,
-            )}
-          >
-            <h3 className="font-display text-xl leading-tight font-black">{collection.title}</h3>
-            <p className="mt-1 text-sm opacity-75">{collection.blurb}</p>
-            <ul className="mt-4 flex flex-wrap gap-1.5">
-              {collection.items.map((item) => (
-                <li key={item.query}>
-                  <button
-                    type="button"
-                    disabled={!live}
-                    onClick={() => pickFeatured(item)}
-                    className="rounded-full border border-current/30 bg-ivory/90 px-2.5 py-1 text-xs font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-ivory disabled:opacity-50 cursor-pointer"
-                  >
-                    {item.query}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </motion.article>
-        ))}
-      </div>
+      <SectionTitle kicker="01 / The culture crate" title="What’s in your world?"><a href="#describe" className="text-sm font-semibold underline underline-offset-4">Rather describe it? Write us a note</a></SectionTitle>
+      <p className="mt-4 max-w-2xl text-ink/70">Pick up to five interests. Search a favorite, explore a category, or borrow a starting point below.</p>
 
       {/* Live search across every category. */}
-      <div id="culture-search" className="mt-12 scroll-mt-24 rounded-[var(--radius-card)] border-2 border-ink bg-ivory-2 p-4 md:p-6">
+      <div id="culture-search" className="culture-search mt-8 scroll-mt-24 border border-ink/20 bg-ivory p-4 md:p-6">
         <div className="flex flex-wrap gap-2" role="group" aria-label="Category">
           <CategoryPill active={category === null} onClick={() => setCategory(null)} label="Everything" />
           {[...entityCategories, ...categories.filter((c) => c.kind === 'tag')].map((c) => (
@@ -178,6 +146,42 @@ export function Explore({
           />
         </div>
       </div>
+<p className="eyebrow mt-10">Not sure where to start? Pull a thread.</p>
+      {/* Featured collections: inspiration only, resolved live on click. */}
+      <div className="collection-grid mt-8">
+        {collections.map((collection, i) => (
+          <motion.article
+            key={collection.id}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.05 }}
+            className={cn(
+              'culture-collection flex flex-col p-5',
+              ACCENT_FILL[collection.accent] ?? ACCENT_FILL.ink,
+            )}
+          >
+            <span className="collection-number" aria-hidden="true">0{i + 1} / CULTURE NOTES</span><div className={`collection-art collection-art-${i % 5}`} aria-hidden="true"><span /><span /><span /></div><h3 className="font-display text-2xl leading-tight font-black">{collection.title}</h3>
+            <p className="mt-1 text-sm opacity-75">{collection.blurb}</p>
+            <ul className="mt-4 flex flex-wrap gap-1.5">
+              {collection.items.map((item) => (
+                <li key={item.query}>
+                  <button
+                    type="button"
+                    disabled={!live}
+                    onClick={() => pickFeatured(item)}
+                    className="rounded-full border border-current/30 bg-ivory/90 px-2.5 py-1 text-xs font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-ivory disabled:opacity-50 cursor-pointer"
+                  >
+                    {item.query}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </motion.article>
+        ))}
+      </div>
+
+
     </section>
   )
 }
@@ -247,7 +251,7 @@ function SearchResults({
   onRetry: () => void
 }) {
   if (state.status === 'idle') {
-    return <p className="text-sm text-muted">Type to search Qloo&apos;s catalog, or tap a featured pick above.</p>
+    return <p className="text-sm text-muted">Type to search Qloo&apos;s catalog, or tap a featured pick below.</p>
   }
   if (state.status === 'loading') {
     return (

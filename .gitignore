@@ -11,3 +11,9 @@ wheels/
 
 .env
 .streamlit/secrets.toml
+
+# Local validation artifacts
+.review/
+.test-tmp*/
+.uv-cache/
+node_modules/

@@ -22,9 +22,9 @@ const NEXT: Record<string, string> = {
 }
 
 const DISCOVERY_OPTIONS: { value: Discovery; label: string; hint: string }[] = [
-  { value: 'familiar', label: 'Familiar', hint: 'Asks Qloo for popularity ≥ 0.90 and favours the most popular' },
-  { value: 'balanced', label: 'Balanced', hint: 'No popularity filter; Qloo relevance decides' },
-  { value: 'adventurous', label: 'Adventurous', hint: 'Asks Qloo for popularity ≤ 0.85 and favours lesser-known' },
+  { value: 'familiar', label: 'Familiar', hint: 'Well-known names and familiar territory' },
+  { value: 'balanced', label: 'Balanced', hint: 'A little familiar, a little unexpected' },
+  { value: 'adventurous', label: 'Adventurous', hint: 'Lesser-known artists, further from the obvious' },
 ]
 
 export function Sound({
@@ -42,8 +42,8 @@ export function Sound({
   const anySet = prefs.preferred.length + prefs.open_to.length + prefs.avoided.length > 0
 
   return (
-    <section id="sound" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-16">
-      <SectionTitle kicker="03 · Sound" title="Tune the music side (optional)">
+    <section id="sound" className="sound-section scroll-mt-20 py-14"><div className="mx-auto max-w-6xl px-4">
+      <SectionTitle kicker="02 / The mixing desk" title="Make it sound like you.">
         {anySet && (
           <Button
             variant="quiet"
@@ -59,7 +59,7 @@ export function Sound({
         )}
       </SectionTitle>
       <p className="mt-4 max-w-2xl text-ink/70">
-        Tap a genre to cycle it: <strong>preferred</strong> → <strong>open to</strong> →{' '}
+        Entirely optional. Leave it open, or tap a genre to cycle: <strong>preferred</strong> → <strong>open to</strong> →{' '}
         <strong>avoid</strong> → off. Preferred and open-to genres filter Qloo&apos;s search;
         a match only counts as <em>confirmed</em> when Qloo&apos;s genre tags and Apple Music agree.
       </p>
@@ -167,7 +167,7 @@ export function Sound({
         </div>
         <div>
           <h3 className="font-display text-2xl font-bold">Discovery</h3>
-          <p className="mt-1 text-sm text-muted">Uses Qloo&apos;s popularity percentile (0–1).</p>
+          <p className="mt-1 text-sm text-muted">Choose how far to wander from the familiar.</p>
           <Segmented
             className="mt-4"
             label="Discovery mode"
@@ -177,7 +177,7 @@ export function Sound({
           />
         </div>
       </div>
-    </section>
+    </div></section>
   )
 }
 

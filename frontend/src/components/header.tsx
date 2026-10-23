@@ -3,10 +3,9 @@ import type { Health } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 const NAV = [
-  { href: '#explore', label: '1. Pick culture' },
-  { href: '#describe', label: 'Describe' },
-  { href: '#sound', label: '2. Shape sound' },
-  { href: '#tune', label: '3. Tune My Radio' },
+  { href: '#explore', label: '01 / Culture' },
+  { href: '#sound', label: '02 / Sound' },
+  { href: '#tune', label: '03 / Tune My Radio' },
 ]
 
 export function Header({ health }: { health: Health | null | 'error' }) {
