@@ -3,6 +3,44 @@
 
 
 
+## V3.1 contrast and copy correction (2026-10-24)
+
+- Fixed the release-blocking After Hours collection conflict: collection cards
+  use semantic data-accent surfaces, with explicit heading, body, metadata,
+  artwork and chip colors. Removed global accent-utility foreground overrides.
+  Small signal badges and buttons now own their foreground/background pairs.
+- Preserved Daylight layout and the midnight/teal/plum/violet After Hours
+  palette. Audited controls, selected genres/eras, description confirmation,
+  loading/errors, listening links, playlist, notifications and keyboard focus.
+  Disabled controls remain readable; outlines have contrasting halos and no
+  delayed color transition. Opaque navigation avoids text contrast changing
+  as content scrolls beneath it. Artist headings have an opaque artwork label.
+- Also corrected Daylight description-panel text, error contrast, and a mobile
+  playlist name field that was squeezed by the export buttons. No discovery,
+  era ranking, reset, reroll, playlist persistence or theme behavior changed.
+- Replaced all five poetic Culture Notes blurbs with ordinary descriptions;
+  simplified description guidance, the After Hours introduction and genre
+  discovery copy. No Qloo evidence or compatibility claims were invented.
+- Added development-only axe-core and a repeatable local synthetic fixture
+  server/browser audit. At 375 and 1440 px in both themes, 50 state checks
+  passed with no measured text/control contrast failures, axe WCAG A/AA
+  violations or app exceptions. Checks include gradient-stop envelopes,
+  composited translucent colors, placeholders, disabled/hover/selected states,
+  focus, all five cards, loading/errors, preview player and reset notification.
+- Measured minimum normal-text contrast: 4.75:1; relevant control boundary:
+  3.31:1. After Hours collection headings: 9.35-10.79:1; descriptions at least
+  8.15:1. Browser screenshots of both themes were inspected, including mobile
+  collections, description, genre/era controls, recommendations and playlists.
+  Local screenshots and the full report are ignored under `.review/v31/`.
+- Python: 272 tests; frontend: 35 tests; Ruff, frontend lint, TypeScript,
+  production build and Git whitespace checks pass. Existing Starlette warning
+  and ~533 kB production JS bundle warning remain. axe is not in the app bundle.
+- Remaining manual checks: physical-device displays/audio and screen readers;
+  native Reset confirmation appearance is browser/OS-owned (its behavior and
+  text were checked). Synthetic fixtures are only for local tests; no live
+  Qloo/catalog calls or credentials were used. User authorized the exact V3.1
+  commit message and push to origin/feat/render-deployment; Render unchanged.
+
 ## V3 product sprint (2026-10-23)
 
 - Implemented on `feat/render-deployment`, preserving the accepted Daylight
@@ -82,7 +120,7 @@
   from Git and Docker context. No commit, push or deployment performed.
 
 ## Current phase
-V3 implemented and validated on `feat/render-deployment` (2026-10-23).
+V3.1 contrast/copy correction validated on `feat/render-deployment` (2026-10-24).
 Release is authorized for commit/push to the existing deployment branch.
 Earlier sprint notes below are historical checkpoints.
 

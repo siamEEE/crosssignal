@@ -27,7 +27,7 @@ export function Segmented<T extends string>({
         <TG.Item
           key={option.value}
           value={option.value}
-          className="group rounded-2xl border-2 border-ink/15 bg-ivory px-4 py-3 text-left transition-all hover:border-ink data-[state=on]:border-ink data-[state=on]:bg-ink data-[state=on]:text-ivory cursor-pointer"
+          className="discovery-mode group rounded-2xl border-2 border-ink/15 bg-ivory px-4 py-3 text-left transition-all hover:border-ink data-[state=on]:border-ink data-[state=on]:bg-ink data-[state=on]:text-ivory cursor-pointer"
         >
           <span className="block font-semibold">{option.label}</span>
           {option.hint && (

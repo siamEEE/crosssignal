@@ -63,7 +63,7 @@ export function PlaylistSection() {
         <span className="text-sm text-muted">{playlist.tracks.length} / {PLAYLIST_LIMIT} songs</span>
       </SectionTitle>
       <div className="mt-6 flex flex-wrap items-end gap-3">
-        <label className="min-w-0 flex-1 text-xs font-semibold">Playlist name
+        <label className="playlist-name min-w-0 flex-1 text-xs font-semibold">Playlist name
           <input key={playlist.name} defaultValue={playlist.name} maxLength={80} onBlur={e => rename(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter') e.currentTarget.blur() }}
             className="mt-2 block w-full rounded-lg border border-ink/30 bg-ivory p-3 text-base text-ink" />

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 
 // shadcn/ui-style button, restyled for Culture Radio.
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all duration-150 select-none disabled:pointer-events-none disabled:opacity-45 [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer',
+  'cs-button inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all duration-150 select-none disabled:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 cursor-pointer',
   {
     variants: {
       variant: {
@@ -37,5 +37,5 @@ export function Button({
   ...props
 }: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
   const Comp = asChild ? Slot.Root : 'button'
-  return <Comp className={cn(buttonVariants({ variant, size, className }))} {...props} />
+  return <Comp data-variant={variant ?? 'primary'} className={cn(buttonVariants({ variant, size, className }))} {...props} />
 }

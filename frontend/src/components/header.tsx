@@ -18,7 +18,7 @@ export function Header({ health, onReset, theme, onTheme }: { health: Health | n
     <header className="sticky top-0 z-30 border-b border-ink/10 bg-ivory/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4">
         <a href="#top" className="flex items-center gap-2" aria-label="CrossSignal home">
-          <span className="grid size-9 place-items-center rounded-full bg-ink text-lime">
+          <span className="station-mark grid size-9 place-items-center rounded-full bg-ink text-lime">
             <Radio className="size-5" />
           </span>
           <span className="leading-none">
@@ -40,15 +40,16 @@ export function Header({ health, onReset, theme, onTheme }: { health: Health | n
             <a
               key={item.href}
               href={item.href}
-              className="rounded-full px-3 py-1.5 text-sm font-medium text-ink/75 transition hover:bg-ink hover:text-ivory"
+              className="section-link rounded-full px-3 py-1.5 text-sm font-medium text-ink/75 transition hover:bg-ink hover:text-ivory"
             >
               {item.label}
             </a>
           ))}
         </nav>
         <span
+          data-live={live}
           className={cn(
-            'ml-auto hidden items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold xl:inline-flex',
+            'service-status ml-auto hidden items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold xl:inline-flex',
             live ? 'border-lime-deep/30 bg-lime/40 text-ink' : 'border-coral/40 bg-coral/15 text-coral-deep',
           )}
           title={health && health !== 'error' ? health.config_problem ?? undefined : undefined}

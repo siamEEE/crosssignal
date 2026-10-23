@@ -75,8 +75,8 @@ export function Describe({
   return (
     <section id="describe" className="scroll-mt-20 bg-ink py-16 text-ivory">
       <div className="mx-auto max-w-6xl px-4">
-        <SectionTitle kicker="01 / Another way in" title="Send a note to the DJ." />
-        <p className="mt-4 max-w-2xl text-ivory/70">
+        <SectionTitle kicker="01 / Another way in" title="Describe your interests." />
+        <p className="description-intro mt-4 max-w-2xl">
           CrossSignal pulls out titles, places and moods, looks each one up in Qloo and waits
           for you to confirm. Nothing joins your profile until you tap it.
         </p>
@@ -100,7 +100,7 @@ export function Describe({
               <Button variant="accent" size="lg" onClick={interpret} disabled={!live || loading || !text.trim()}>
                 {loading ? <Spinner /> : <Wand2 />} Read my description
               </Button>
-              <span className="text-xs text-ivory/55">
+              <span className="description-hint text-xs">
                 Name titles explicitly; confirm matches below ({text.length}/600)
               </span>
             </div>
@@ -110,7 +110,7 @@ export function Describe({
                   key={example}
                   type="button"
                   onClick={() => changeText(example)}
-                  className="rounded-full border border-ivory/20 px-3 py-1.5 text-left text-xs text-ivory/75 transition hover:border-lime hover:text-ivory cursor-pointer"
+                  className="description-example rounded-full border px-3 py-1.5 text-left text-xs transition cursor-pointer"
                 >
                   {example.slice(0, 52)}…
                 </button>
@@ -159,12 +159,12 @@ export function Describe({
                                 onClick={() => onAdd(toSignal(c), 'picked')}
                                 className={cn(
                                   'inline-flex items-center gap-1.5 rounded-full border-2 px-3 py-1 text-sm font-medium transition cursor-pointer disabled:cursor-default',
-                                  added ? 'border-ink bg-lime' : 'border-ink/15 hover:border-ink',
+                                  added ? 'border-ink genre-state genre-preferred' : 'border-ink/15 hover:border-ink',
                                 )}
                               >
                                 {added ? <Check className="size-3.5" /> : <Plus className="size-3.5" />}
                                 {c.name}
-                                <span className={cn('text-xs', style.text)}>
+                                <span className={cn('text-xs', !added && style.text)}>
                                   {c.type_label}
                                   {c.year ? ` ${c.year}` : ''}
                                 </span>
@@ -225,5 +225,5 @@ function MatchBadge({ match }: { match: string }) {
     none: ['No title match', 'bg-ink/10'],
   }
   const [label, tone] = copy[match] ?? copy.none
-  return <span className={cn('shrink-0 rounded-full px-2 py-0.5 text-[0.7rem] font-bold', tone)}>{label}</span>
+  return <span data-match={match} className={cn('match-badge shrink-0 rounded-full px-2 py-0.5 text-[0.7rem] font-bold', tone)}>{label}</span>
 }

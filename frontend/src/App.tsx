@@ -158,7 +158,7 @@ export default function App() {
           <PlayerProvider key={resetKey}>
             <a
               href="#explore"
-              className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-ivory"
+              className="skip-link sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-ivory"
             >
               Skip to explore
             </a>
@@ -217,7 +217,7 @@ export default function App() {
             />
             <div aria-live="polite" className="pointer-events-none fixed top-20 right-4 z-50">
               {toast && (
-                <p className="flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-ivory shadow-pop">
+                <p className="toast-surface flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-ivory shadow-pop">
                   <CheckCircle2 className="size-4 text-lime" /> {toast}
                 </p>
               )}

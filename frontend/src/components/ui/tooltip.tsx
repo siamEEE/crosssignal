@@ -20,7 +20,7 @@ export function Tooltip({
         <T.Content
           sideOffset={6}
           className={cn(
-            'z-50 max-w-72 rounded-xl bg-ink px-3 py-2 text-xs leading-relaxed text-ivory shadow-pop',
+            'tooltip-surface z-50 max-w-72 rounded-xl bg-ink px-3 py-2 text-xs leading-relaxed text-ivory shadow-pop',
             className,
           )}
         >

@@ -10,9 +10,9 @@ import type { Discovery, GenreOptions, Preferences } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 const STATE_STYLE: Record<Exclude<GenreState, null>, { cls: string; label: string; icon: typeof Heart }> = {
-  preferred: { cls: 'bg-lime border-ink text-ink', label: 'Preferred', icon: Heart },
-  open: { cls: 'bg-apricot border-ink text-ink', label: 'Open to', icon: ThumbsUp },
-  avoided: { cls: 'bg-ink border-ink text-ivory line-through decoration-coral decoration-2', label: 'Avoid', icon: Ban },
+  preferred: { cls: 'genre-state genre-preferred', label: 'Preferred', icon: Heart },
+  open: { cls: 'genre-state genre-open', label: 'Open to', icon: ThumbsUp },
+  avoided: { cls: 'genre-state genre-avoided line-through decoration-coral decoration-2', label: 'Avoid', icon: Ban },
 }
 const NEXT: Record<string, string> = {
   none: 'preferred',
@@ -23,7 +23,7 @@ const NEXT: Record<string, string> = {
 
 const DISCOVERY_OPTIONS: { value: Discovery; label: string; hint: string }[] = [
   { value: 'familiar', label: 'Familiar', hint: 'Well-known names and familiar territory' },
-  { value: 'balanced', label: 'Balanced', hint: 'A little familiar, a little unexpected' },
+  { value: 'balanced', label: 'Balanced', hint: 'Ranked by Qloo relevance, without a popularity filter' },
   { value: 'adventurous', label: 'Adventurous', hint: 'Lesser-known artists, further from the obvious' },
 ]
 
@@ -93,11 +93,11 @@ export function Sound({
                     aria-expanded={open === genre.id}
                     aria-label={`${genre.label} subgenres`}
                     onClick={() => setOpen(open === genre.id ? null : genre.id)}
-                    className="relative grid w-8 shrink-0 place-items-center sm:w-10 rounded-2xl border-2 border-ink/15 bg-ivory transition hover:border-ink cursor-pointer"
+                    className="subgenre-toggle relative grid w-8 shrink-0 place-items-center sm:w-10 rounded-2xl border-2 border-ink/15 bg-ivory transition hover:border-ink cursor-pointer"
                   >
                     <ChevronDown className={cn('size-4 transition', open === genre.id && 'rotate-180')} />
                     {activeSubs > 0 && (
-                      <span className="absolute -top-1.5 -right-1.5 grid size-5 place-items-center rounded-full bg-violet text-[0.65rem] font-bold text-ivory">
+                      <span className="absolute -top-1.5 -right-1.5 grid size-5 place-items-center rounded-full signal-badge signal-violet text-[0.65rem] font-bold">
                         {activeSubs}
                       </span>
                     )}
@@ -154,7 +154,7 @@ export function Sound({
                 aria-pressed={era === null ? prefs.eras.length === 0 : prefs.eras.includes(era)}
                 onClick={() => dispatch({ type: 'era', era })}
                 className={cn(
-                  'rounded-full border-2 px-3.5 py-1.5 text-sm font-semibold transition cursor-pointer',
+                  'era-toggle rounded-full border-2 px-3.5 py-1.5 text-sm font-semibold transition cursor-pointer',
                   (era === null ? prefs.eras.length === 0 : prefs.eras.includes(era)) ? 'border-ink bg-violet text-ivory' : 'border-ink/15 hover:border-ink',
                 )}
               >
@@ -165,7 +165,7 @@ export function Sound({
         </div>
         <div>
           <h3 className="font-display text-2xl font-bold">Discovery</h3>
-          <p className="mt-1 text-sm text-muted">Choose how far to wander from the familiar.</p>
+          <p className="mt-1 text-sm text-muted">Choose between well-known and lesser-known artists.</p>
           <Segmented
             className="mt-4"
             label="Discovery mode"

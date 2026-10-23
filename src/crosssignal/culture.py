@@ -224,19 +224,19 @@ def _items(*pairs: tuple[str, str]) -> tuple[FeaturedItem, ...]:
 # Inspiration only: names, not ids. Each item is resolved live through
 # Qloo search when chosen, exactly like typed text.
 FEATURED: tuple[Collection, ...] = (
-    Collection("neon", "Neon after dark", "Rain-slick cities and chrome.", "violet",
+    Collection("neon", "Neon after dark", "Futuristic films, city nightlife and cyberpunk games.", "violet",
                _items(("Blade Runner 2049", "screen"), ("Drive", "screen"),
                       ("Cyberpunk 2077", "games"), ("Cyberpunk", "aesthetics"))),
-    Collection("cosmic", "Cosmic & cinematic", "Big skies, slow reveals.", "lime",
+    Collection("cosmic", "Cosmic & cinematic", "Space stories, science fiction and exploration games.", "lime",
                _items(("Interstellar", "screen"), ("Arrival", "screen"),
                       ("Outer Wilds", "games"), ("Dune", "books"))),
-    Collection("cozy", "Cozy worlds", "Warm light and small rituals.", "apricot",
+    Collection("cozy", "Cozy worlds", "Relaxed games and stories with a gentler pace.", "apricot",
                _items(("Spirited Away", "screen"), ("Stardew Valley", "games"),
                       ("Cottagecore", "aesthetics"), ("Hayao Miyazaki", "people"))),
-    Collection("anime", "Anime & manga", "Epic arcs, inked pages.", "coral",
+    Collection("anime", "Anime & manga", "Anime series and manga, from action to character-driven stories.", "coral",
                _items(("Attack on Titan", "screen"), ("Cowboy Bebop", "screen"),
                       ("Berserk", "books"), ("Chainsaw Man", "books"))),
-    Collection("scenes", "Scenes & places", "Streetwear, cities, rooms.", "ink",
+    Collection("scenes", "Scenes & places", "Explore music connections through fashion, cities and culture.", "ink",
                _items(("Supreme", "brands"), ("Paris", "places"),
                       ("Tokyo", "places"), ("Dark Academia", "aesthetics"))),
 )  # fmt: skip

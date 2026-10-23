@@ -30,3 +30,22 @@ Layout:
 
 Design tokens (palette, fonts, motion) live in `src/index.css`
 (`@theme`). Motion respects `prefers-reduced-motion`.
+
+Browser contrast regression checks (local synthetic fixtures, no credentials):
+
+```powershell
+# Repository root, after npm run build in frontend:
+uv run python tests/contrast_server.py
+# In a second terminal, launch an isolated Edge/Chromium profile with
+# --remote-debugging-port=9336 and --user-data-dir pointing inside .review/.
+node frontend/scripts/audit-contrast.mjs
+```
+
+The runner uses development-only axe-core plus computed sRGB contrast checks
+for text, placeholders, translucent fills, gradient-stop combinations, control
+boundaries and focus rings. It exercises both themes at 375/1440 px, including
+selected, hover, disabled, results, playlist, loading, error and notification
+states. Screenshots and a JSON report go to ignored `.review/v31/`. Any measured
+contrast failure or axe violation makes the command fail. Gradient envelopes
+are conservative; screenshot review remains necessary for overlapping content,
+artwork and browser/OS-owned native confirmation dialogs.

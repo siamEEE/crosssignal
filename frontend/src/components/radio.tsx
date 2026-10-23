@@ -231,12 +231,12 @@ function ArtistCard({
         {cover ? (
           <img src={cover} alt={`Artwork for ${artist.name}`} loading="lazy" className="size-full object-cover" />
         ) : (
-          <div className="grid size-full place-items-center font-display text-6xl font-black opacity-30">
+          <div aria-hidden="true" className="grid size-full place-items-center font-display text-6xl font-black opacity-30">
             {artist.name.slice(0, 1)}
           </div>
         )}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent p-4 pt-16">
-          <h3 className="font-display text-3xl leading-none font-black text-ivory">{artist.name}</h3>
+        <div className="artist-caption absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/85 to-transparent p-4 pt-16">
+          <h3 className="artist-heading font-display text-3xl leading-none font-black text-ivory">{artist.name}</h3>
         </div>
         {artist.source === 'unfiltered' && (
           <Tooltip content="Found in a broader Qloo search after the genre-filtered one returned too few. Its genre was checked here instead.">
@@ -270,8 +270,9 @@ function ArtistCard({
           })}
         </ul>
         <p
+          data-tone={genre.tone}
           className={cn(
-            'rounded-xl px-3 py-2 text-sm',
+            'genre-evidence rounded-xl px-3 py-2 text-sm',
             genre.tone === 'good' && 'bg-lime/40 font-medium',
             genre.tone === 'soft' && 'bg-apricot/20 text-ink/80',
             genre.tone === 'plain' && 'bg-ink/5 text-ink/80',
@@ -330,7 +331,7 @@ function TrackRow({ track }: { track: Track }) {
       >
         {track.artwork_small && <img src={track.artwork_small} alt="" className="absolute inset-0 size-full object-cover" />}
         {track.preview_url && (
-          <span className="relative grid size-7 place-items-center rounded-full bg-ivory/90 text-ink">
+          <span className="preview-action relative grid size-7 place-items-center rounded-full bg-ivory/90 text-ink">
             {active && playing ? <Pause className="size-3.5" /> : <Play className="size-3.5 translate-x-px" />}
           </span>
         )}
@@ -361,7 +362,7 @@ function TrackRow({ track }: { track: Track }) {
           <div className="flex flex-wrap gap-2">
             {trackSearches(track).map(({ label, href }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                className="rounded-full border border-ink/25 px-3 py-2 text-xs font-semibold hover:bg-ink hover:text-ivory">
+                className="listening-search rounded-full border border-ink/25 px-3 py-2 text-xs font-semibold hover:bg-ink hover:text-ivory">
                 {label} search
               </a>
             ))}

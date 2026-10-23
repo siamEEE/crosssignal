@@ -84,7 +84,7 @@ function NowPlaying() {
           <button
             type="button"
             onClick={() => (playing ? toggle(current) : stop())}
-            className="grid size-10 place-items-center rounded-full bg-lime text-ink cursor-pointer"
+            className="player-action grid size-10 place-items-center rounded-full bg-lime text-ink cursor-pointer"
             aria-label={playing ? 'Pause preview' : 'Close player'}
           >
             {playing ? <Pause className="size-4" /> : <Square className="size-3.5" />}

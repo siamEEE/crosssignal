@@ -3,7 +3,7 @@ import { AlertCircle, Check, Loader2, Plus, Search, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { api, ApiError } from '@/lib/api'
-import { ACCENT_FILL, styleFor } from '@/lib/categories'
+import { styleFor } from '@/lib/categories'
 import { MAX_SIGNALS, toSignal } from '@/lib/profile'
 import type { Candidate, Category, Collection, Resolution, Signal } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -81,7 +81,7 @@ export function Explore({
 
   return (
     <section id="explore" className="mx-auto max-w-6xl scroll-mt-20 px-4 py-14">
-      <SectionTitle kicker="01 / The culture crate" title="What’s in your world?"><a href="#describe" className="text-sm font-semibold underline underline-offset-4">Rather describe it? Write us a note</a></SectionTitle>
+      <SectionTitle kicker="01 / The culture crate" title="What’s in your world?"><a href="#describe" className="text-sm font-semibold underline underline-offset-4">Prefer to describe your interests?</a></SectionTitle>
       <p className="mt-4 max-w-2xl text-ink/70">Pick up to five interests. Search a favorite, explore a category, or borrow a starting point below.</p>
 
       {/* Live search across every category. */}
@@ -131,8 +131,7 @@ export function Explore({
         </label>
         {category === 'aesthetics' && (
           <p className="mt-3 text-sm text-muted">
-            Aesthetics are Qloo <strong>tags</strong>, not titles. They travel alongside at least one
-            title, person, brand or place and can&apos;t drive results on their own.
+            Add a title, creator, brand or place as well. A mood can help describe your interests, but cannot start a station on its own.
           </p>
         )}
 
@@ -146,23 +145,25 @@ export function Explore({
           />
         </div>
       </div>
-<p className="eyebrow mt-10">Not sure where to start? Pull a thread.</p>
+      <p className="eyebrow mt-10">Need a starting point? Try a collection.</p>
       {/* Featured collections: inspiration only, resolved live on click. */}
       <div className="collection-grid mt-8">
         {collections.map((collection, i) => (
           <motion.article
             key={collection.id}
+            data-accent={collection.accent}
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.05 }}
-            className={cn(
-              'culture-collection flex flex-col p-5',
-              ACCENT_FILL[collection.accent] ?? ACCENT_FILL.ink,
-            )}
+            className="culture-collection flex flex-col p-5"
           >
-            <span className="collection-number" aria-hidden="true">0{i + 1} / CULTURE NOTES</span><div className={`collection-art collection-art-${i % 5}`} aria-hidden="true"><span /><span /><span /></div><h3 className="font-display text-2xl leading-tight font-black">{collection.title}</h3>
-            <p className="mt-1 text-sm opacity-75">{collection.blurb}</p>
+            <span className="collection-number" aria-hidden="true">0{i + 1} / CULTURE NOTES</span>
+            <div className={`collection-art collection-art-${i % 5}`} aria-hidden="true">
+              <span /><span /><span />
+            </div>
+            <h3 className="font-display text-2xl leading-tight font-black">{collection.title}</h3>
+            <p className="collection-description mt-2 text-sm">{collection.blurb}</p>
             <ul className="mt-4 flex flex-wrap gap-1.5">
               {collection.items.map((item) => (
                 <li key={item.query}>
@@ -170,7 +171,7 @@ export function Explore({
                     type="button"
                     disabled={!live}
                     onClick={() => pickFeatured(item)}
-                    className="rounded-full border border-current/30 bg-ivory/90 px-2.5 py-1 text-xs font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-ivory disabled:opacity-50 cursor-pointer"
+                    className="collection-pick rounded-full border px-2.5 py-1 text-xs font-semibold transition hover:-translate-y-0.5 cursor-pointer"
                   >
                     {item.query}
                   </button>
@@ -219,7 +220,7 @@ function CategoryPill({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border-2 px-3 py-1.5 text-sm font-semibold transition cursor-pointer',
+        'category-toggle inline-flex items-center gap-1.5 rounded-full border-2 px-3 py-1.5 text-sm font-semibold transition cursor-pointer',
         active ? 'border-ink bg-ink text-ivory' : 'border-ink/15 bg-ivory hover:border-ink',
       )}
     >

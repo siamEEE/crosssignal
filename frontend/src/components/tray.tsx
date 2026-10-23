@@ -50,12 +50,12 @@ export function Tray({
                     className={cn(
                       'flex shrink-0 items-center gap-1.5 rounded-full border-2 border-ink py-1 pr-1 pl-2 text-sm font-semibold',
                       style.fill,
-                      signal.category === 'games' || signal.category === 'podcasts' ? 'text-ivory' : 'text-ink',
+
                     )}
                   >
                     <Icon className="size-3.5" />
                     <span className="max-w-[12rem] truncate">{signal.name}</span>
-                    {signal.year ? <span className="opacity-70">{signal.year}</span> : null}
+                    {signal.year ? <span className="signal-detail">{signal.year}</span> : null}
                     <button
                       type="button"
                       onClick={() => dispatch({ type: 'remove', id: signal.id })}
