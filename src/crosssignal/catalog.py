@@ -38,6 +38,30 @@ def normalize_name(name: str) -> str:
     return " ".join(stripped.casefold().split())
 
 
+# "(2007 Remaster)", "- Live", "[Radio Edit]" and similar version labels.
+_VERSION_WORDS = (
+    r"remaster(?:ed)?|live|remix|mix|edit|version|mono|stereo|demo|"
+    r"deluxe|bonus|single|radio|instrumental|acoustic|re-recorded|reprise"
+)
+_VERSION_SUFFIX = re.compile(
+    rf"\s*(?:[(\[][^)\]]*\b(?:{_VERSION_WORDS})\b[^)\]]*[)\]]"
+    rf"|\s-\s[^-]*\b(?:{_VERSION_WORDS})\b.*)$",
+    re.IGNORECASE,
+)
+
+
+def base_title(title: str) -> str:
+    """A title without version labels, for spotting duplicate songs.
+
+    "Where Is My Mind? (2007 Remaster)" and "Where Is My Mind? - Live"
+    both become "where is my mind?".
+    """
+    previous = None
+    while previous != title:
+        previous, title = title, _VERSION_SUFFIX.sub("", title)
+    return normalize_name(title)
+
+
 def credited_artists(artist_name: str) -> list[str]:
     """Split a credit string into the individual artists it names."""
     return [part for part in _CREDIT_SEPARATORS.split(artist_name) if part]
@@ -76,6 +100,8 @@ def _parse_track(item: object) -> Track | None:
         return None
     if item.get("kind", "song") != "song":
         return None
+    if item.get("isStreamable") is False:  # listed, but not playable
+        return None
 
     title = item.get("trackName")
     artist = item.get("artistName")
@@ -100,6 +126,7 @@ def _parse_track(item: object) -> Track | None:
         artwork_small=_resize_artwork(artwork, 200),
         artwork_large=_resize_artwork(artwork, 600),
         genre=genre.strip() if isinstance(genre, str) and genre.strip() else None,
+        preview_url=_https_or_none(item.get("previewUrl")),
     )
 
 
@@ -136,7 +163,7 @@ def parse_tracks(
     seen_titles: set[str] = set()
     tracks: list[Track] = []
     for _, _, track in ranked:
-        key = normalize_name(track.title)
+        key = base_title(track.title)
         if key in seen_titles:
             continue
         seen_titles.add(key)

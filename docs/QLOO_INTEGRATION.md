@@ -5,6 +5,28 @@ Status: **live and verified** against `https://hackathon.api.qloo.com`
 names match the observed responses; no real Qloo response data is stored
 in this repository.
 
+Two clients use the same `QlooClient`:
+
+- **Culture Radio** (`engine.py` + `api.py` + `frontend/`): searchable
+  interests, genre/era/discovery preferences, feedback. See
+  "Culture Radio additions" below and `docs/AGENT_DECISIONS.md`.
+- **Streamlit fallback** (`app.py` via `QlooProvider`, described next).
+
+## Culture Radio additions (verified live 2026-10-21)
+
+| Item | Observed |
+|---|---|
+| Multi-type `/search` | `types=urn:entity:movie,urn:entity:tv_show` works in one call; results carry `properties.image.url` (images.qloo.com), `release_year`/`publication_year`, `disambiguation` (often just the year) |
+| Categories | Anime resolves as TV/movie, manga as books; `urn:entity:destination` (not in the search enum) and `place` resolve |
+| `urn:entity:locality` | Search returns it, but as an insights signal it is **400**; never offered |
+| Signals | Person, brand, book and artist entities all work as `signal.interests.entities` |
+| Tag signals | `signal.interests.tags` with an ambience tag + an entity left the top 5 unchanged; a tag alone gave incoherent artists. Tags are sent only alongside an entity, and the UI says their effect is unmeasured |
+| Artist filters | `filter.tags` (genre), `filter.exclude.tags`, `filter.exclude.entities`, `filter.popularity.min/max` and `page` (page 2 disjoint from page 1) all behave as documented |
+| Genre tags on artists | Present on insights results (`tags[].id`, type `urn:tag:genre:music`), not on `/search` artist results |
+| Genre tag quality | **Noisy**: a pop star carried `black_metal`, a production duo `power_metal`, a folk singer (conflated with a same-name band) metal tags. A Qloo tag alone never counts as confirmed; it must agree with the Apple Music genre family |
+| `/v2/tags` names | Display names can differ from ids (`…:rock` = "Rock and Roll", `…:country` = "And Country"). Genre ids were verified on real artist entities; matching is by id only |
+| Rate limit | `x-second-ratelimit-limit: 10`; the API spaces Qloo calls ≥ 0.12 s apart and caches answers for 6 h in memory |
+
 ## Architecture
 
 ```

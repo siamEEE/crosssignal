@@ -2,9 +2,34 @@
 # CrossSignal Development Status
 
 ## Current phase
-Live Qloo integration on branch `feat/qloo-live`: verified end to end
-against the hackathon API (2026-10-21). UI V1, quality sprint, evaluation
-framework and Qloo work are all still uncommitted.
+Redesign and correctness sprint resumed by Codex (2026-10-21); changes remain
+uncommitted on `feat/qloo-live`, with checkpoint `49cf591` preserved.
+
+### Redesign and correctness sprint implementation
+- Visible tune action renamed **Tune My Radio**, with a contrasting lime button;
+  section navigation is available on mobile and spells out the tuning steps.
+- Music editorial treatment: dark masthead, oversized serif headline, vinyl
+  motif, paper sections and tighter card corners.
+- Artist search links for YouTube, YouTube Music and Spotify; existing direct
+  Apple Music track links retained. No new API integration or dependency.
+- Reproduced and fixed two genre errors: Metal catalog evidence incorrectly
+  confirmed a simultaneous Jazz preference; broad Metal catalog evidence alone
+  incorrectly established an avoided Metalcore subgenre. Added regression tests.
+- Discovery request ordering, aborted-search suppression, description revision
+  checks, previous-profile pagination, changed-profile notice and page cap.
+- Defensive storage parsing and a 50-artist hidden-feedback bound.
+- API body, concurrency and process-wide request budgets; same-origin browser
+  enforcement and response headers. See `docs/PUBLIC_DEPLOYMENT.md` for limits.
+- Final validation: 265 Python tests, 13 frontend tests, Ruff, frontend lint,
+  TypeScript and production build passed; Git whitespace check passed.
+  Existing warnings: Starlette/httpx deprecation and ~519 kB frontend bundle.
+- Browser visual/device verification and live provider calls have not been run
+  during this sprint. No credentials were accessed; no commit, push or deploy.
+
+Culture Radio vertical slice on `feat/qloo-live` (2026-10-21).
+Checkpoint commit `49cf591` (local, user-approved) holds UI V1,
+evaluation and live Qloo work. Everything after it is uncommitted.
+Streamlit (`app.py`) remains the working fallback/release path.
 
 ## Completed
 - Devpost account created
@@ -101,8 +126,56 @@ framework and Qloo work are all still uncommitted.
     aesthetics unresolved; headless live-app and invalid-key checks pass
   - 185 pytest tests; Ruff clean
 
-- Product-quality sprint (2026-10-21): **planned only, not implemented;
-  awaiting approval.** No source changes were made for it.
+- Culture Radio Phase 1, FastAPI engine boundary (2026-10-21, uncommitted):
+  - New stdlib-only engine modules: `genres.py` (hierarchical taxonomy, 89
+    Qloo music-genre tag ids, all observed live), `culture.py` (8 human
+    categories -> verified Qloo entity/tag types; search + exact/ambiguous
+    resolution; featured collections as names only), `interpret.py`
+    (id-free NL contract + deterministic interpreter), `ranking.py` (pure
+    genre verdicts, era/familiarity, track selection), `engine.py`
+    (validate -> Qloo -> pre-rank -> bounded catalog check -> rank)
+  - `api.py` (FastAPI): health, categories, featured, genres, search,
+    interpret, discover; in-memory TTL cache; Qloo errors -> 429/502/503/504
+    with a uniform `{error: {kind, message}}` body; serves `frontend/dist`
+  - New deps (project-local, in `pyproject.toml`/`uv.lock`): `fastapi`,
+    `uvicorn`
+  - Key live finding: Qloo genre tags are noisy (a pop star tagged
+    `black_metal`), so a genre match is "confirmed" only when Qloo tags
+    and the Apple Music genre agree; contradictions are excluded and counted
+  - 260 pytest tests; Ruff clean
+  - Follow-up: `related_only` flag so a genre match via a related family
+    (Qloo "Electronic", Apple "Pop") is never described as agreement
+
+- Culture Radio Phases 2-4, React frontend + live slice (2026-10-21,
+  uncommitted; see `frontend/README.md`, `docs/AGENT_DECISIONS.md`):
+  - `frontend/`: Vite + React 19 + TypeScript (strict) + Tailwind v4,
+    shadcn/ui-pattern components on `radix-ui`, `motion`, `lucide-react`,
+    `clsx`/`tailwind-merge`/`class-variance-authority`; `vitest` (dev).
+    Project-local npm only (`frontend/package-lock.json`); 0 vulnerabilities
+  - Ivory/coral/lime/violet/apricot/ink design tokens, Fraunces + Space
+    Grotesk, category-coloured styling, reduced-motion support
+  - Sections: Explore (featured collections + live search across 8
+    categories, ambiguity/suggestion states), Describe (deterministic NL
+    reader, per-phrase confirmation, "apply music" step), Sound
+    (preferred/open/avoid genre cycle, advanced subgenres, era,
+    familiar/balanced/adventurous), Radio (grounded artist cards, 30 s
+    previews, like / not for me / more like this, remix, dig deeper),
+    sticky profile tray, shared preview player
+  - Honest states: live/not-configured/offline banners, 503/429/5xx
+    errors with retry where useful, `insufficient`/`empty` results with
+    exclusion counts; no demo data in this UI
+  - Live headless-Edge run (CDP script in session scratchpad, no deps):
+    featured exact add, ambiguous "Drive" pick, aesthetic tag, Electronic
+    preference -> 8 artists, all genre-confirmed, previews play; like +
+    hide + remix excluded both and credited the liked artist; dig deeper
+    returned 8 new artists; describe flow; no console errors from the app;
+    390 px mobile with no page overflow after two fixes (grid min-width,
+    genre tile width); unconfigured server shows a clear disabled state
+  - Streamlit fallback unchanged and still starts (health ok; 20 UI tests)
+  - Frontend: `tsc -b` clean, oxlint clean, 11 vitest tests, build ok
+
+- Product-quality sprint plan (2026-10-21): superseded by the Culture
+  Radio brief (final product decisions); probe findings kept below.
   - Read-only live probe (~15 calls) findings:
     - Artist entities carry `urn:tag:genre:music` tags and properties
       `primary_genres`, `secondary_genres`, `start_year`, `obscurity_scale`
@@ -124,20 +197,25 @@ framework and Qloo work are all still uncommitted.
     documented agent decision points. No new dependencies.
 
 ## Pending
-- Approve the product-quality sprint plan and answer its five open
-  decisions: aesthetic tags as modifier-only vs. deferred; hide vs. show
-  genre mismatches; session-only feedback; featured collection contents;
-  approval scope (all steps, or stop after step 2 or 5)
-- Manual browser check of live Qloo mode (cards, tooltip, mobile width)
-- Decide how aesthetics and Studio Ghibli should work in live mode
-  (e.g. `/v2/tags` + `signal.interests.tags`, or a brand entity); needs
-  a design decision
+- Independent Codex review of the Culture Radio slice
+- Manual browser checklist (real device/keyboard/screen reader; see the
+  implementation report): focus order from the top of the page, tooltip
+  keyboard access, audio on iOS Safari, real 375 px phones
+- Approval to delete unused Vite scaffold files (`frontend/src/App.css`,
+  `frontend/src/assets/*`, `frontend/public/icons.svg`)
+- iTunes Search API rate limiting (~20 calls/min) can produce
+  "catalog couldn't check" exclusions on rapid repeated remixes
+- Aesthetic tags: effect on results is unmeasured; consider a live A/B
+  check before featuring them more prominently
+- Gemini interpreter: contract and validation exist; SDK, key and prompts
+  need approval
+- Frontend bundle is 516 kB (165 kB gzip); code-splitting not done
 - Human review of Qloo result quality (Journey skews punk/indie; an
   occasional mainstream outlier)
 - Artist identity across catalogs is by exact name only; same-name
   artists in iTunes could be a different act
 - Approval for `google-genai` dependency and Gemini key before agent work
-- Decide whether `eval/results/` is committed or git-ignored
+- `eval/results/` is committed (decided at checkpoint `49cf591`)
 - Human pairwise judgments (none collected yet)
 - LLM-only recordings (needs approval for a paid LLM API)
 - Manual browser verification of UI V1 (desktop and mobile widths):
@@ -156,11 +234,10 @@ framework and Qloo work are all still uncommitted.
 - No large changes without review
 
 ## Next milestone
-Human review of the live Qloo integration, then commit the accumulated
-uncommitted work (UI V1, evaluation, Qloo) in reviewable commits, then
-start the approved product-quality sprint at step 1 (stage separation).
+Independent Codex review of the Culture Radio slice, then (with
+approval) commit it on top of checkpoint `49cf591`.
 
 ## Current blockers
-- Product-quality sprint: approval and design decisions pending.
-- Nothing has been committed since `3cce20b`; a large uncommitted
-  working tree raises review and loss risk.
+- None for the vertical slice. Release path: Culture Radio (FastAPI +
+  React) if review passes; Streamlit remains the working fallback.
+- Everything after `49cf591` is uncommitted pending review.

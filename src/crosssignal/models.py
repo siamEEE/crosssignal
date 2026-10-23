@@ -94,6 +94,7 @@ class Track:
     artwork_small: str | None
     artwork_large: str | None
     genre: str | None = None
+    preview_url: str | None = None  # 30 s iTunes preview, if offered
 
 
 class LookupStatus(StrEnum):

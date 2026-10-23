@@ -19,10 +19,24 @@ Verified live against https://hackathon.api.qloo.com (2026-10-21):
 - Rate limit headers: x-second-ratelimit-limit (10 at the time of
   writing) and x-month-ratelimit-*. 429 is retried with bounded backoff.
 
+Also verified live (2026-10-21, Culture Radio slice):
+- /search accepts several comma-separated `types` in one call; results
+  carry `properties.image.url`, `properties.release_year` /
+  `publication_year` and `disambiguation`. Search-result tags use
+  `tag_id`; insights tags use `id`.
+- Artist insights carry `tags` of type `urn:tag:genre:music` and honour
+  `filter.tags`, `filter.exclude.tags`, `filter.exclude.entities`,
+  `filter.popularity.min/max` and `page` (page 2 is disjoint from page 1).
+- An artist entity works as a signal ("more like this").
+- `urn:entity:locality` is search-only; as a signal it returns 400.
+- GET /v2/tags?filter.query=...&filter.tag.types=... ->
+  {results: {tags: [{id, name, type, ...}]}}.
+
 This module turns every failure into RecommendationError with a kind, so
 the UI never sees HTTP or Qloo JSON details.
 """
 
+import threading
 import time
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
@@ -43,7 +57,9 @@ from crosssignal.models import (
 
 QLOO_SOURCE = "qloo"
 ARTIST_TYPE = "urn:entity:artist"
+MUSIC_GENRE_TAG = "urn:tag:genre:music"
 INSIGHTS_MAX_TAKE = 50
+TAGS_MAX_TAKE = 50
 SIGNAL_KEY = "signal.interests.entities"
 
 # How each picker category is searched in Qloo. Categories without a Qloo
@@ -70,6 +86,19 @@ class QlooEntity:
     popularity: float | None = None
     # (signal entity id, share of influence) from feature.explainability.
     explained_by: tuple[tuple[str, float], ...] = ()
+    year: int | None = None  # release or publication year, if given
+    disambiguation: str | None = None
+    image_url: str | None = None
+    # (tag id, tag name) pairs of type urn:tag:genre:music.
+    genre_tags: tuple[tuple[str, str], ...] = ()
+    start_year: int | None = None  # artists: first active year, if given
+
+
+@dataclass(frozen=True)
+class QlooTag:
+    tag_id: str
+    name: str
+    tag_type: str
 
 
 def _fail(kind: ProviderErrorKind, message: str) -> RecommendationError:
@@ -128,6 +157,8 @@ def parse_entity(item: object) -> QlooEntity | None:
 
     query = item.get("query")
     query = query if isinstance(query, dict) else {}
+    properties = item.get("properties")
+    properties = properties if isinstance(properties, dict) else {}
     return QlooEntity(
         entity_id,
         name,
@@ -135,7 +166,52 @@ def parse_entity(item: object) -> QlooEntity | None:
         _number(query.get("affinity")),
         _number(item.get("popularity")),
         _explained_by(query),
+        year=_year(properties.get("release_year"))
+        or _year(properties.get("publication_year")),
+        disambiguation=_text(item.get("disambiguation")),
+        image_url=_image_url(properties.get("image")),
+        genre_tags=_genre_tags(item.get("tags")),
+        start_year=_year(properties.get("start_year")),
     )
+
+
+def _year(value: object) -> int | None:
+    number = _number(value)
+    return int(number) if number is not None and 1000 <= number <= 2100 else None
+
+
+def _image_url(image: object) -> str | None:
+    url = image.get("url") if isinstance(image, dict) else None
+    return url if isinstance(url, str) and url.startswith("https://") else None
+
+
+def _genre_tags(tags: object) -> tuple[tuple[str, str], ...]:
+    """Music-genre tags; insights use `id`, search results use `tag_id`."""
+    if not isinstance(tags, list):
+        return ()
+    pairs: dict[str, str] = {}
+    for tag in tags:
+        if not isinstance(tag, dict) or tag.get("type") != MUSIC_GENRE_TAG:
+            continue
+        tag_id = _text(tag.get("id")) or _text(tag.get("tag_id"))
+        if tag_id is not None:
+            pairs.setdefault(tag_id, _text(tag.get("name")) or tag_id)
+    return tuple(pairs.items())
+
+
+def parse_tags(payload: object) -> list[QlooTag]:
+    results = payload.get("results") if isinstance(payload, dict) else None
+    tags = results.get("tags") if isinstance(results, dict) else None
+    if not isinstance(tags, list):
+        raise _fail(ProviderErrorKind.MALFORMED, "tags response had no tags list")
+    parsed = []
+    for tag in tags:
+        if not isinstance(tag, dict):
+            continue
+        tag_id, name, kind = (_text(tag.get(k)) for k in ("id", "name", "type"))
+        if tag_id and name and kind and tag_id.startswith("urn:tag:"):
+            parsed.append(QlooTag(tag_id, name, kind))
+    return parsed
 
 
 def parse_search(payload: object) -> list[QlooEntity]:
@@ -186,14 +262,29 @@ class QlooClient:
         settings: QlooSettings,
         http: httpx.Client | None = None,
         sleep: Callable[[float], None] = time.sleep,
+        min_interval: float = 0.0,
     ) -> None:
+        """`min_interval` spaces requests out (seconds) to stay under the
+        per-second rate limit when several callers share one client."""
         if not settings.configured:
             raise _fail(ProviderErrorKind.NOT_CONFIGURED, "QLOO_API_KEY is not set")
         self._settings = settings
         self._http = http or httpx.Client(timeout=settings.timeout)
         self._sleep = sleep
+        self._min_interval = min_interval
+        self._lock = threading.Lock()
+        self._last_request = 0.0
 
-    def _get(self, path: str, params: dict[str, str | int]) -> object:
+    def _throttle(self) -> None:
+        if self._min_interval <= 0:
+            return
+        with self._lock:
+            wait = self._last_request + self._min_interval - time.monotonic()
+            if wait > 0:
+                self._sleep(wait)
+            self._last_request = time.monotonic()
+
+    def _get(self, path: str, params: dict[str, str | int | float]) -> object:
         headers = {
             "X-Api-Key": self._settings.api_key.reveal(),
             "Accept": "application/json",
@@ -201,6 +292,7 @@ class QlooClient:
         url = f"{self._settings.base_url}{path}"
         for attempt in range(MAX_RETRIES + 1):
             last = attempt == MAX_RETRIES
+            self._throttle()
             try:
                 response = self._http.get(url, params=params, headers=headers)
             except httpx.TimeoutException as exc:
@@ -235,16 +327,54 @@ class QlooClient:
         params = {"query": query, "types": ",".join(types), "take": take}
         return parse_search(self._get("/search", params))
 
-    def artist_insights(self, entity_ids: Sequence[str], take: int) -> list[QlooEntity]:
-        """Artists for the signal entities. Non-artist entities are dropped."""
+    def tags(
+        self, query: str, tag_types: Sequence[str] = (), take: int = 10
+    ) -> list[QlooTag]:
+        """GET /v2/tags: tags whose name matches `query` (partial match)."""
+        params: dict[str, str | int | float] = {
+            "filter.query": query,
+            "take": min(take, TAGS_MAX_TAKE),
+        }
+        if tag_types:
+            params["filter.tag.types"] = ",".join(tag_types)
+        return parse_tags(self._get("/v2/tags", params))
+
+    def artist_insights(
+        self,
+        entity_ids: Sequence[str],
+        take: int,
+        *,
+        tag_signals: Sequence[str] = (),
+        filter_tags: Sequence[str] = (),
+        exclude_tags: Sequence[str] = (),
+        exclude_entities: Sequence[str] = (),
+        popularity_min: float | None = None,
+        popularity_max: float | None = None,
+        page: int | None = None,
+    ) -> list[QlooEntity]:
+        """Artists for the signal entities. Non-artist entities are dropped.
+
+        Optional arguments map one-to-one onto parameters the docs list
+        for `filter.type=urn:entity:artist`; empty ones are not sent.
+        """
         if not entity_ids:
             raise ValueError("artist_insights needs at least one signal entity")
-        params = {
+        params: dict[str, str | int | float] = {
             "filter.type": ARTIST_TYPE,
             SIGNAL_KEY: ",".join(entity_ids),
             "feature.explainability": "true",
             "take": min(take, INSIGHTS_MAX_TAKE),
         }
+        optional: dict[str, str | float | int | None] = {
+            "signal.interests.tags": ",".join(tag_signals) or None,
+            "filter.tags": ",".join(filter_tags) or None,
+            "filter.exclude.tags": ",".join(exclude_tags) or None,
+            "filter.exclude.entities": ",".join(exclude_entities) or None,
+            "filter.popularity.min": popularity_min,
+            "filter.popularity.max": popularity_max,
+            "page": page if page and page > 1 else None,
+        }
+        params.update({k: v for k, v in optional.items() if v is not None})
         entities = parse_insights(self._get("/v2/insights", params))
         return [e for e in entities if ARTIST_TYPE in e.types]
 

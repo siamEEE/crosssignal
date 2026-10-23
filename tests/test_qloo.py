@@ -426,3 +426,96 @@ def test_provider_errors_propagate_and_are_not_cached():
         p.recommend(["drive"], 8)
     client.error = None
     assert p.recommend(["drive"], 8).unresolved == (DRIVE,)
+
+
+# --- Culture Radio client extensions ----------------------------------------
+
+
+def test_entity_metadata_and_genre_tags_parse_from_both_tag_shapes():
+    insights_item = {
+        **artist("a1", "M83"),
+        "properties": {"image": {"url": "https://img.example/a.jpg"}, "start_year": 2001},
+        "tags": [
+            {"id": "urn:tag:genre:music:synthwave", "name": "Synthwave",
+             "type": "urn:tag:genre:music"},
+            {"id": "urn:tag:style:qloo:dreamy", "name": "Dreamy", "type": "urn:tag:style:qloo"},
+        ],
+    }  # fmt: skip
+    parsed = parse_entity(insights_item)
+    assert parsed.genre_tags == (("urn:tag:genre:music:synthwave", "Synthwave"),)
+    assert parsed.image_url == "https://img.example/a.jpg"
+    assert parsed.start_year == 2001
+
+    search_item = {
+        **entity("b1", "Dune (Dune, #1)", "urn:entity:book"),
+        "disambiguation": "Frank Herbert",
+        "properties": {"publication_year": 1965, "image": {"url": "http://insecure"}},
+        "tags": [{"tag_id": "urn:tag:genre:music:folk", "name": "Folk",
+                  "type": "urn:tag:genre:music"}],
+    }  # fmt: skip
+    parsed = parse_entity(search_item)
+    assert (parsed.year, parsed.disambiguation) == (1965, "Frank Herbert")
+    assert parsed.image_url is None  # only https images are kept
+    assert parsed.genre_tags == (("urn:tag:genre:music:folk", "Folk"),)
+
+
+def test_tags_endpoint_sends_documented_params_and_parses():
+    seen = []
+
+    def handler(request):
+        seen.append(request)
+        return httpx.Response(200, json={"success": True, "results": {"tags": [
+            {"id": "urn:tag:ambience:qloo:cozy", "name": "Cozy",
+             "type": "urn:tag:ambience:qloo"},
+            {"id": "not-a-tag", "name": "Junk", "type": "x"},
+        ]}})  # fmt: skip
+
+    found = client_for(handler).tags("cozy", ["urn:tag:ambience:qloo"], take=80)
+    assert [(t.tag_id, t.name) for t in found] == [
+        ("urn:tag:ambience:qloo:cozy", "Cozy")
+    ]
+    params = seen[0].url.params
+    assert seen[0].url.path == "/v2/tags"
+    assert params["filter.query"] == "cozy"
+    assert params["filter.tag.types"] == "urn:tag:ambience:qloo"
+    assert params["take"] == "50"
+    with pytest.raises(RecommendationError):
+        responding(200, json={"results": {}}).tags("x")
+
+
+def test_artist_insights_optional_filters_are_sent_only_when_given():
+    seen = []
+
+    def handler(request):
+        seen.append(request.url.params)
+        return httpx.Response(200, json=insights_payload(artist("a1", "M83")))
+
+    client = client_for(handler)
+    client.artist_insights(["m1"], 5)
+    client.artist_insights(
+        ["m1"], 5, tag_signals=["urn:tag:ambience:qloo:rainy"],
+        filter_tags=["urn:tag:genre:music:metal", "urn:tag:genre:music:djent"],
+        exclude_tags=["urn:tag:genre:music:country"], exclude_entities=["x1"],
+        popularity_min=0.9, popularity_max=None, page=2,
+    )  # fmt: skip
+    plain, full = seen
+    assert not any(
+        k.startswith(("filter.tags", "filter.exclude", "page")) for k in plain
+    )
+    assert full["signal.interests.tags"] == "urn:tag:ambience:qloo:rainy"
+    assert full["filter.tags"] == "urn:tag:genre:music:metal,urn:tag:genre:music:djent"
+    assert full["filter.exclude.tags"] == "urn:tag:genre:music:country"
+    assert full["filter.exclude.entities"] == "x1"
+    assert full["filter.popularity.min"] == "0.9"
+    assert "filter.popularity.max" not in full
+    assert full["page"] == "2"
+
+
+def test_throttle_spaces_requests_when_enabled():
+    sleeps = []
+    http = httpx.Client(transport=httpx.MockTransport(
+        lambda request: httpx.Response(200, json=search_payload())))  # fmt: skip
+    client = QlooClient(SETTINGS, http, sleep=sleeps.append, min_interval=10.0)
+    client.search("a", ["urn:entity:movie"])
+    client.search("b", ["urn:entity:movie"])
+    assert len(sleeps) == 1 and 9 < sleeps[0] <= 10
