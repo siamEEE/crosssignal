@@ -99,14 +99,18 @@ class Preferences:
     avoided: tuple[str, ...] = ()
     era: str | None = None
     discovery: str = "balanced"
+    eras: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         genres.validate([*self.preferred, *self.open_to, *self.avoided])
         overlap = set(self.avoided) & set(self.preferred + self.open_to)
         if overlap:
             raise ValueError(f"Genres both wanted and avoided: {sorted(overlap)}")
-        if self.era is not None and self.era not in ERAS:
-            raise ValueError(f"Unknown era: {self.era}")
+        chosen = (*self.eras, *((self.era,) if self.era is not None else ()))
+        if any(era not in ERAS for era in chosen):
+            raise ValueError("Unknown release era")
+        # Canonical order keeps scoring and track selection independent of click order.
+        object.__setattr__(self, "eras", tuple(era for era in ERAS if era in chosen))
         if self.discovery not in DISCOVERY_MODES:
             raise ValueError(f"Unknown discovery mode: {self.discovery}")
 
@@ -214,12 +218,23 @@ class EraFit:
         return self.in_era / self.dated if self.dated else None
 
 
-def era_fit(tracks: Sequence[Track], era: str | None) -> EraFit | None:
-    if era is None:
+def selected_eras(eras: str | Sequence[str] | None) -> tuple[str, ...]:
+    if isinstance(eras, str):
+        return (eras,)
+    return tuple(eras or ())
+
+
+def year_matches(year: int, eras: Sequence[str]) -> bool:
+    return any(ERAS[era][0] <= year <= ERAS[era][1] for era in eras)
+
+
+def era_fit(tracks: Sequence[Track], era: str | Sequence[str] | None) -> EraFit | None:
+    eras = selected_eras(era)
+    if not eras:
         return None
-    low, high = ERAS[era]
     years = [int(t.year) for t in tracks if t.year and t.year.isdigit()]
-    return EraFit(sum(low <= y <= high for y in years), len(years))
+    # Count the union, so a recent release also in the 2020s is counted once.
+    return EraFit(sum(year_matches(year, eras) for year in years), len(years))
 
 
 def familiarity_term(popularity: float | None, mode: str) -> float:
@@ -289,7 +304,8 @@ def dominant_genre(tracks: Sequence[Track]) -> str | None:
 
 
 def select_tracks(
-    tracks: Sequence[Track], era: str | None, shown_urls: set[str], limit: int = 3
+    tracks: Sequence[Track], era: str | Sequence[str] | None,
+    shown_urls: set[str], limit: int = 3
 ) -> tuple[Track, ...]:
     """Pick songs to show instead of the first catalog hits.
 
@@ -297,7 +313,7 @@ def select_tracks(
     song, then prefers: in-era releases, playable previews and distinct
     albums, keeping catalog order (sole credits first) within ties.
     """
-    low, high = ERAS[era] if era else (0, 9999)
+    eras = selected_eras(era)
     seen_titles: set[str] = set()
     pool = []
     for position, track in enumerate(tracks):
@@ -306,13 +322,31 @@ def select_tracks(
             continue
         seen_titles.add(key)
         in_era = bool(
-            track.year and track.year.isdigit() and low <= int(track.year) <= high
+            track.year and track.year.isdigit()
+            and (not eras or year_matches(int(track.year), eras))
         )
         pool.append((not in_era, track.preview_url is None, position, track))
     pool.sort(key=lambda entry: entry[:3])
 
     picked: list[Track] = []
     albums: set[str] = set()
+    # Represent selected eras before filling remaining slots. A track can cover
+    # overlapping ranges, but is never selected twice. Missing sample years do
+    # not exclude the artist or imply anything about its complete discography.
+    covered: set[str] = set()
+    for selected in eras if len(eras) > 1 else ():
+        if selected in covered or len(picked) == limit:
+            continue
+        for *_, track in pool:
+            if track in picked or not track.year or not track.year.isdigit():
+                continue
+            year = int(track.year)
+            if year_matches(year, (selected,)):
+                picked.append(track)
+                if track.album:
+                    albums.add(track.album)
+                covered.update(e for e in eras if year_matches(year, (e,)))
+                break
     for distinct_only in (True, False):
         for *_, track in pool:
             if len(picked) == limit:

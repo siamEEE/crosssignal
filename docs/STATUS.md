@@ -2,6 +2,52 @@
 # CrossSignal Development Status
 
 
+
+## V3 product sprint (2026-10-23)
+
+- Implemented on `feat/render-deployment`, preserving the accepted Daylight
+  layout and existing Python/FastAPI/Render Docker boundary. No new packages,
+  services, authentication or credentials were needed or accessed.
+- Multi-era preferences now run through profile migration, toggles, description
+  interpretation, API, Python scoring, track selection and explanations.
+  Overlapping year ranges count once; selected eras receive track coverage
+  where the limited catalog sample permits. Eras remain soft preferences.
+  Legacy single-era requests remain supported; explicit `eras: []` clears them.
+- Header Reset has native confirmation, aborts/invalidate pending discovery,
+  clears taste/profile/results/history and search drafts, and stops playback.
+  Playlist and theme remain intact.
+- Try another mix requests subsequent real Qloo pages, preserving preferences
+  and explicit dislikes. A bounded 160-artist session history is excluded
+  upstream and checked locally by id/name. Likes do not erase history;
+  More like this adds artist evidence as a distinct refinement. Page cap is
+  20, with honest empty-page and session-limit guidance; no automatic retries
+  across extra pages or extra provider calls to pad a short selection.
+- My Playlist replaces the saved-rotation UI and migrates its tracks. Individual
+  and bulk add, Apple track-id dedupe, remove, up/down reorder, rename, validated
+  storage (300-song bound), readable copy and formula-safe CSV export. Artist
+  feedback stays separate. Exact Apple links and labeled artist+track searches
+  retained. No external playlist synchronization is claimed.
+- Persistent Daylight / After Hours choice, system preference on first visit,
+  and pre-paint initialization. After Hours uses indigo/petrol/plum surfaces,
+  cyan record details, amber sleeve accents, distinct navigation/playlist
+  treatments, quieter masthead copy and visible focus. Core datasets and
+  ranking are independent of theme. Guidance and error/era copy audited.
+- Validation: 272 Python tests and 32 frontend tests passed; Ruff, frontend
+  lint, TypeScript, production build and diff checks passed. Local headless
+  Edge checked both themes at 375/768/1440 px, storage migrations, simultaneous
+  eras, playlist reorder/rename/remove/CSV, refresh and confirmed reset.
+- Additional local-only synthetic browser fixtures exercised the actual API
+  and built frontend: pages 1/2/3, unseen artists, retained dislikes and all
+  three eras, individual/bulk playlist add, empty pools, and an intercepted
+  in-flight response after Reset. All passed with no app exceptions. These
+  fixtures live only in ignored `.review/`, never in the production app.
+- Remaining verification: live Qloo/catalog quality and quota behavior, audible
+  playback on real phones (especially iOS), screen-reader traversal, clipboard
+  permissions and a Docker image build. Existing Starlette deprecation and
+  ~532 kB JavaScript bundle warning remain. No secrets or generated artifacts
+  are included in the release commit. User explicitly authorized commit/push
+  to `origin/feat/render-deployment` for the existing Render auto-deploy.
+
 ## Editorial redesign implementation (2026-10-23)
 
 - Completed the user-authorized React visual redesign: paper masthead with
@@ -36,8 +82,9 @@
   from Git and Docker context. No commit, push or deployment performed.
 
 ## Current phase
-Redesign and correctness sprint resumed by Codex (2026-10-21); changes remain
-uncommitted on `feat/qloo-live`, with checkpoint `49cf591` preserved.
+V3 implemented and validated on `feat/render-deployment` (2026-10-23).
+Release is authorized for commit/push to the existing deployment branch.
+Earlier sprint notes below are historical checkpoints.
 
 ### Redesign and correctness sprint implementation
 - Visible tune action renamed **Tune My Radio**, with a contrasting lime button;

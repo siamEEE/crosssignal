@@ -10,7 +10,6 @@ import {
   Shuffle,
   ThumbsDown,
   ThumbsUp,
-  Heart,
   Undo2,
 } from 'lucide-react'
 import { SectionTitle } from '@/components/explore'
@@ -32,8 +31,10 @@ import type { Profile } from '@/lib/profile'
 import type { Artist, DiscoverResult, Track } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { trackSearches } from '@/lib/listening'
-import { useState, useEffect } from 'react'
-import { loadFavorites, saveFavorites, toggleFavorite } from '@/lib/favorites'
+import { useState } from 'react'
+import { AddToPlaylist } from '@/components/playlist'
+import { usePlaylist } from '@/lib/playlist-context'
+import { trackKey } from '@/lib/playlist'
 
 export type RadioState =
   | { status: 'idle' }
@@ -48,7 +49,6 @@ export function RadioSection({
   onDislike,
   onMoreLike,
   onRemix,
-  onDeeper,
   onClearFeedback,
   onRetry,
   stale,
@@ -59,31 +59,30 @@ export function RadioSection({
   onDislike: (a: Artist) => void
   onMoreLike: (a: Artist) => void
   onRemix: () => void
-  onDeeper: () => void
   onClearFeedback: () => void
   onRetry: () => void
   stale: boolean
 }) {
-  const [favorites, setFavorites] = useState(loadFavorites)
-  useEffect(() => saveFavorites(favorites), [favorites])
-  if (state.status === 'idle' && !favorites.length) return null
-  const result = state.status === 'done' ? state.result : state.status === 'idle' ? null : state.previous
+  const { add, playlist } = usePlaylist()
+  if (state.status === 'idle') return null
+  const result = state.status === 'done' ? state.result : state.previous
   const hidden = new Set(profile.disliked.map((d) => d.id))
   const likedIds = new Set(profile.liked.map((l) => l.id))
   const artists = result?.artists.filter((a) => !hidden.has(a.id)) ?? []
+  const allAdded = artists.every(a => a.tracks.every(t => playlist.tracks.some(saved => trackKey(saved) === trackKey(t))))
   const feedbackCount = profile.liked.length + profile.disliked.length
 
   return (
     <section id="radio" className="radio-section scroll-mt-20 py-16">
       <div className="mx-auto max-w-6xl px-4">
-        <SectionTitle kicker="03 / Now broadcasting" title={result ? statusHeadline(result) : state.status === 'idle' ? 'Your saved rotation' : state.status === 'error' ? 'A break in the signal' : 'Tuning in…'}>
+        <SectionTitle kicker="03 / Now broadcasting" title={result ? statusHeadline(result) : state.status === 'error' ? 'A break in the signal' : 'Tuning in…'}>
           {result && (
             <div className="flex flex-wrap gap-2">
-              <Button variant="accent" onClick={onRemix} disabled={state.status === 'loading'}>
-                <Shuffle /> Remix{feedbackCount ? ` with ${feedbackCount} feedback` : ''}
+              <Button variant="accent" onClick={onRemix} disabled={state.status === 'loading' || result.page >= 20}>
+                <Shuffle /> Not feeling it? Try another mix
               </Button>
-              <Button variant="outline" onClick={onDeeper} disabled={state.status === 'loading' || result.page >= 20 || stale}>
-                <ArrowDownToLine /> Dig deeper (page {result.page + 1})
+              <Button variant="outline" onClick={() => add(artists.flatMap(a => a.tracks))} disabled={!artists.length || allAdded}>
+                <ArrowDownToLine /> {allAdded && artists.length ? 'Visible tracks added' : 'Add visible tracks to My Playlist'}
               </Button>
               {feedbackCount > 0 && (
                 <Button variant="quiet" size="sm" onClick={onClearFeedback}>
@@ -93,34 +92,11 @@ export function RadioSection({
             </div>
           )}
         </SectionTitle>
-        {favorites.length > 0 && (
-          <details className="mt-6 border-y border-ink/25 py-4">
-            <summary className="cursor-pointer font-semibold">
-              Saved rotation / {favorites.length} favorites
-            </summary>
-            <p className="mt-2 text-xs text-muted">
-              Saved in this browser. Favorites stay separate from your remix feedback.
-            </p>
-            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-              {favorites.map(f => (
-                <li key={f.track.url} className="flex items-center gap-2 border border-ink/15 bg-ivory p-3">
-                  <a className="min-w-0 flex-1 text-sm font-semibold" href={f.track.url}
-                    target="_blank" rel="noopener noreferrer">
-                    {f.artist} / {f.track.title}
-                  </a>
-                  <button type="button" className="cursor-pointer p-2 text-xs underline"
-                    aria-label={`Remove ${f.track.title} from favorites`}
-                    onClick={() => setFavorites(current => toggleFavorite(current, f))}>
-                    Remove
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </details>
-        )}
+        {result && result.page >= 20 && <p role="status" className="mt-4 text-sm">You have reached the end of this session&apos;s 20-page search. Change an interest or tune again to start a new selection.</p>}
+        {result && result.artists.length === 0 && result.page < 20 && <p role="status" className="mt-4 text-sm">No new eligible artists on this page. You can try the next mix without changing your preferences.</p>}
         {stale && state.status !== 'loading' && (
           <p role="status" className="mt-5 border-l-4 border-coral bg-coral/10 p-4 text-sm font-semibold">
-            Your taste profile has changed. Tune My Radio to hear a fresh selection; these artists are from your previous tuning.
+            Your preferences changed. Tune again when you are ready; these results use the previous settings.
           </p>
         )}
 
@@ -128,7 +104,7 @@ export function RadioSection({
           <div role="alert" className="mt-6 flex flex-wrap items-center gap-3 rounded-2xl border-2 border-coral bg-coral/15 p-4 text-coral-deep">
             <AlertTriangle className="size-5" />
             <p className="flex-1 font-medium">
-              {state.error.message} No demo or substitute results are shown in their place.
+              {state.error.message} Your preferences are still here.
             </p>
             {state.error.retryable && (
               <Button variant="outline" size="sm" onClick={onRetry}>
@@ -146,12 +122,11 @@ export function RadioSection({
           <div className="mt-6 rounded-2xl border-2 border-dashed border-ink/30 p-5">
             <p className="font-display text-xl font-bold">
               {result.status === 'empty'
-                ? 'Qloo had artists, but none passed the checks.'
+                ? 'No new eligible artists on this page.'
                 : 'CrossSignal shows only artists that passed the checks.'}
             </p>
             <p className="mt-1 text-sm text-ink/70">
-              Try removing a genre preference, pick “Any era”,
-              switch discovery to Balanced, or dig deeper for Qloo&apos;s next page.
+              Try the next mix, or review your genre preferences. Your release eras are a soft preference and never exclude an artist.
             </p>
           </div>
         )}
@@ -169,10 +144,8 @@ export function RadioSection({
                   transition={{ delay: Math.min(i * 0.06, 0.4), type: 'spring', stiffness: 220, damping: 26 }}
                 >
                   <ArtistCard
-                    saved={favorites.some(f => f.track.url === artist.tracks[0]?.url)}
-                    onSave={() => { if (artist.tracks[0]) setFavorites(current => toggleFavorite(current, { artist: artist.name, track: artist.tracks[0] })) }}
                     artist={artist}
-                    era={result?.preferences.era ?? null}
+                    era={result?.preferences.eras ?? []}
                     liked={likedIds.has(artist.id)}
                     onLike={() => onLike(artist)}
                     onDislike={() => onDislike(artist)}
@@ -233,8 +206,6 @@ function Loading() {
 }
 
 function ArtistCard({
-  saved,
-  onSave,
   artist,
   era,
   liked,
@@ -242,10 +213,8 @@ function ArtistCard({
   onDislike,
   onMoreLike,
 }: {
-  saved: boolean
-  onSave: () => void
   artist: Artist
-  era: string | null
+  era: string[]
   liked: boolean
   onLike: () => void
   onDislike: () => void
@@ -319,7 +288,6 @@ function ArtistCard({
         </ol>
 
         <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-ink/10 pt-3">
-          <Button size="sm" variant={saved ? 'accent' : 'outline'} onClick={onSave} disabled={!artist.tracks.length} aria-pressed={saved}><Heart className={saved ? 'fill-current' : ''} />{saved ? 'Saved' : 'Save favorite'}</Button>
           <Button
             size="sm"
             variant={liked ? 'accent' : 'outline'}
@@ -381,7 +349,9 @@ function TrackRow({ track }: { track: Track }) {
         aria-label={`Open ${track.title} on Apple Music`}
       >
         <ExternalLink className="size-4" />
-      </a></div>
+      </a>
+      <AddToPlaylist track={track} />
+      </div>
       <button type="button" onClick={() => setExpanded(!expanded)} aria-expanded={expanded} className="mt-2 ml-14 cursor-pointer text-xs font-semibold underline underline-offset-4">{expanded ? 'Hide listening options' : 'Listen elsewhere'}</button>
       {expanded && (
         <div className="mt-3 border-t border-ink/15 pt-3">

@@ -70,7 +70,7 @@ export function Describe({
   const selectedIds = new Set(selected.map((s) => s.id))
   const full = selected.length >= MAX_SIGNALS
   const music = reading?.music
-  const hasMusic = !!music && (music.preferred.length || music.avoided.length || music.era || music.discovery)
+  const hasMusic = !!music && (music.preferred.length || music.avoided.length || music.eras.length || music.discovery)
 
   return (
     <section id="describe" className="scroll-mt-20 bg-ink py-16 text-ivory">
@@ -191,7 +191,7 @@ export function Describe({
                         {music.avoided.length > 0 && (
                           <li>Avoid: {music.avoided.map((g) => labels.get(g) ?? g).join(', ')}</li>
                         )}
-                        {music.era && <li>Era: {ERA_LABEL[music.era] ?? music.era}</li>}
+                        {music.eras.length > 0 && <li>Eras: {music.eras.map(e => ERA_LABEL[e] ?? e).join(', ')}</li>}
                         {music.discovery && <li>Discovery: {music.discovery}</li>}
                       </ul>
                       <Button

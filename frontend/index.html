@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Set the surface before CSS/React paints; storage may be blocked.
+      (() => {
+        let saved;
+        try { saved = localStorage.getItem('crosssignal.theme.v1'); } catch {}
+        const theme = saved === 'daylight' || saved === 'after-hours' ? saved
+          : matchMedia('(prefers-color-scheme: dark)').matches ? 'after-hours' : 'daylight';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme === 'after-hours' ? 'dark' : 'light';
+      })();
+    </script>
     <meta name="description" content="CrossSignal Culture Radio: music discovered from the films, games, books and places you love, via Qloo." />
     <title>CrossSignal · Culture Radio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />

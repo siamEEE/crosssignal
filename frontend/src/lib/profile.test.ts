@@ -14,6 +14,12 @@ import type { Artist, Signal } from './types'
 afterEach(() => vi.unstubAllGlobals())
 
 describe('stored profiles', () => {
+  it('migrates a single era and sanitizes multi-era persistence', () => {
+    vi.stubGlobal('localStorage', { getItem: () => JSON.stringify({ ...emptyProfile, prefs: { ...emptyProfile.prefs, eras: undefined, era: '2000s' } }) })
+    expect(loadProfile().prefs.eras).toEqual(['2000s'])
+    vi.stubGlobal('localStorage', { getItem: () => JSON.stringify({ ...emptyProfile, prefs: { ...emptyProfile.prefs, eras: ['2010s', 'bad', '1980s', '2010s', '2000s'] } }) })
+    expect(loadProfile().prefs.eras).toEqual(['1980s', '2000s', '2010s'])
+  })
   it('recovers from malformed preference lists', () => {
     vi.stubGlobal('localStorage', { getItem: () => JSON.stringify({ ...emptyProfile, prefs: { preferred: null } }) })
     expect(loadProfile()).toEqual(emptyProfile)
@@ -26,6 +32,15 @@ describe('stored profiles', () => {
     expect(loadProfile().signals).toEqual([])
     expect(loadProfile().disliked).toHaveLength(50)
   })
+})
+
+it('toggles several eras and clears them with Any era', () => {
+  let profile = emptyProfile
+  for (const era of ['1980s', '2000s', '2010s']) profile = reduce(profile, { type: 'era', era })
+  expect(profile.prefs.eras).toEqual(['1980s', '2000s', '2010s'])
+  profile = reduce(profile, { type: 'era', era: '2000s' })
+  expect(profile.prefs.eras).toEqual(['1980s', '2010s'])
+  expect(reduce(profile, { type: 'era', era: null }).prefs.eras).toEqual([])
 })
 
 const film = (id: string): Signal => ({

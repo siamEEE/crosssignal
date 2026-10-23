@@ -32,6 +32,32 @@ def engine(qloo, catalog, **kw):
     return Engine(qloo, catalog, workers=2, **kw)
 
 
+def test_rerolls_advance_pages_exclude_history_and_keep_validation():
+    class PagedQloo(FakeQloo):
+        def artist_insights(self, entity_ids, take, **kwargs):
+            page = kwargs.get("page", 1)
+            self.insights["m1"] = {
+                1: [metal_band(1)],
+                2: [metal_band(1), metal_band(2), artist("bad", "Pop Act", "pop")],
+            }.get(page, [])
+            return super().artist_insights(entity_ids, take, **kwargs)
+
+    qloo = PagedQloo()
+    catalog = FakeCatalog({**tracks_for("Band 1", "Band 2"), **tracks_for("Pop Act", genre="Pop")})
+    e = engine(qloo, catalog)
+    prefs = Preferences(preferred=("metal",), avoided=("pop",), eras=("1980s", "2000s", "2010s"))
+    first = e.discover([FILM], prefs)
+    ids = [p.candidate.entity_id for p in first.picks]
+    second = e.discover([FILM], prefs, page=2, exclude_artists=ids)
+    assert [p.candidate.entity_id for p in second.picks] == ["a2"]
+    assert second.preferences == prefs
+    assert all(p.verdict.fit is GenreFit.PREFERRED for p in second.picks)
+    third = e.discover([FILM], prefs, Feedback(disliked=("a2",)), page=3, exclude_artists=ids)
+    assert third.status is Status.EMPTY and third.picks == []
+    assert {call[2]["page"] for call in qloo.insight_calls()} == {1, 2, 3}
+    assert third.tally.lookups == 0
+
+
 # --- validation ---------------------------------------------------------------
 
 

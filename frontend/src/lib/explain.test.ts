@@ -22,10 +22,10 @@ describe('grounded explanations', () => {
   it('names the rank and the interest Qloo used', () => {
     expect(
       evidenceLine({ signal_id: 'g', signal_name: 'Cyberpunk 2077', category: 'games', rank: 2, affinity: 0.9, explained_share: 1 }),
-    ).toBe("Qloo's #2 artist for the game Cyberpunk 2077")
+    ).toBe("Qloo placed this artist #2 for your interest in Cyberpunk 2077.")
     expect(
       evidenceLine({ signal_id: 'a', signal_name: 'Spiritbox', category: 'liked', rank: 4, affinity: null, explained_share: null }),
-    ).toBe("Qloo's #4 artist for the artist you liked Spiritbox")
+    ).toBe("Qloo placed this artist #4 for your interest in Spiritbox.")
   })
 
   it('distinguishes confirmed, single-source and missing genre evidence', () => {
@@ -45,9 +45,11 @@ describe('grounded explanations', () => {
   })
 
   it('reports era evidence as counts, or says it is missing', () => {
-    expect(eraLine(artist({}, { in_era: 3, dated: 4 }), '2010s')).toBe('3 of 4 catalog songs are from the 2010s')
+    expect(eraLine(artist({}, { in_era: 3, dated: 4 }), '2010s')).toBe('3 of 4 sampled catalog songs are from the 2010s')
     expect(eraLine(artist({}, { in_era: 0, dated: 0 }), 'recent')).toMatch(/No release years/)
     expect(eraLine(artist({}), null)).toBeNull()
+    expect(eraLine(artist({}, { in_era: 0, dated: 4 }), ['1980s', '2000s', '2010s']))
+      .toBe('None of the 4 sampled songs are from the 1980s, the 2000s, the 2010s; other releases may be.')
   })
 
   it('summarises exclusions and status without padding', () => {

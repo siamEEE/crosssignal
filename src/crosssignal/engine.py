@@ -253,12 +253,13 @@ class Engine:
         feedback: Feedback = NO_FEEDBACK,
         page: int = 1,
         max_artists: int = MAX_ARTISTS,
+        exclude_artists: Sequence[str] = (),
     ) -> Result:
         entities, tag_signals = validate_signals(signals, feedback)
         if not 1 <= page <= 20:
             raise InvalidRequest("page must be between 1 and 20")
         sources = [*entities, *feedback.liked]
-        excluded_ids = {*feedback.disliked, *(a.id for a in feedback.liked)}
+        excluded_ids = {*feedback.disliked, *(a.id for a in feedback.liked), *exclude_artists}
         tally = Tally()
         notices: list[str] = []
 
@@ -345,7 +346,7 @@ class Engine:
                             tally.mismatched += 1
                         tally.exclude(verdict.fit.value, candidate.name)
                         continue
-                    era = era_fit(tracks, prefs.era)
+                    era = era_fit(tracks, prefs.eras)
                     accepted.append(
                         Ranked(
                             candidate,
@@ -362,7 +363,7 @@ class Engine:
         shown: set[str] = set()
         picks = []
         for item in chosen:
-            tracks = select_tracks(item.tracks, prefs.era, shown)
+            tracks = select_tracks(item.tracks, prefs.eras, shown)
             if not tracks:  # every song already shown on another card
                 continue
             shown.update(t.url for t in tracks)

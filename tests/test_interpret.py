@@ -46,6 +46,12 @@ def test_era_and_discovery_words():
     assert interpret_deterministic("popular stuff").music.discovery == "familiar"
 
 
+def test_description_keeps_multiple_eras():
+    reading = interpret_deterministic("Arrival, music from the 1980s, 2000s and 2010s")
+    assert reading.music.eras == ("1980s", "2000s", "2010s")
+    assert reading.music.era is None
+
+
 def test_negated_cultural_phrases_are_dropped_and_duplicates_merged():
     assert phrases("Dune, dune, not Twilight") == ["Dune"]
 
@@ -60,7 +66,7 @@ def test_no_personal_trait_fields_exist_in_the_contract():
         MusicHints.__dataclass_fields__
     )
     assert fields == {"mentions", "music", "interpreter", "preferred", "avoided",
-                      "era", "discovery"}  # fmt: skip
+                      "era", "eras", "discovery"}  # fmt: skip
 
 
 def test_validate_rejects_out_of_vocabulary_output():

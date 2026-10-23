@@ -216,3 +216,33 @@ def test_track_selection_prefers_previews_and_distinct_albums():
     titles = [t.title for t in select_tracks(tracks, None, set())]
     assert titles == ["Same Album", "Third", "No Preview"]
     assert len(select_tracks(tracks, None, set(), limit=4)) == 4
+
+
+def test_multiple_eras_use_a_union_and_represent_each_range():
+    tracks = [song("A", str(y), year=str(y)) for y in (2019, 2018, 2017, 2003, 1984)]
+    prefs = Preferences(eras=("2010s", "1980s", "2000s", "2010s"))
+    assert prefs.eras == ("1980s", "2000s", "2010s")
+    fit = era_fit(tracks, prefs.eras)
+    assert (fit.in_era, fit.dated) == (5, 5)
+    selected = select_tracks(tracks, prefs.eras, set())
+    assert {t.year for t in selected} == {"1984", "2003", "2019"}
+    assert select_tracks(tracks, prefs.eras, set()) == selected
+
+
+def test_overlapping_recent_and_decade_do_not_double_count():
+    from crosssignal.ranking import THIS_YEAR
+
+    tracks = [song("A", "Recent", year=str(THIS_YEAR)), song("A", "Old", year="1994")]
+    fit = era_fit(tracks, ("2020s", "recent"))
+    assert (fit.in_era, fit.dated, fit.share) == (1, 2, 0.5)
+    selected = select_tracks(tracks, ("2020s", "recent"), set())
+    assert len(selected) == 2
+    assert selected[0].title == "Recent"
+
+
+def test_absent_era_is_soft_and_unknown_eras_are_rejected():
+    tracks = [song("A", "Song", year="1994")]
+    assert era_fit(tracks, ()) is None
+    assert select_tracks(tracks, ("1980s", "2000s"), set()) == tuple(tracks)
+    with pytest.raises(ValueError):
+        Preferences(eras=("1890s",))

@@ -1,11 +1,12 @@
 import { ArrowDown, ArrowUpRight, Disc3 } from 'lucide-react'
+import type { Theme } from '@/lib/theme'
 import type { Category } from '@/lib/types'
-export function Hero({ categories }: { categories: Category[] }) {
+export function Hero({ categories, theme }: { categories: Category[]; theme: Theme }) {
  return <section id="top" className="editorial-hero">
  <div className="hero-layout mx-auto max-w-6xl px-4"><div className="hero-copy">
- <p className="eyebrow">An independent station for your imagination</p>
- <h1>Your world.<br />A different <em>soundtrack.</em></h1>
- <p className="hero-deck">The films that stay with you. The games you disappear into. Turn the things you love into music you haven&apos;t met yet.</p>
+ <p className="eyebrow">{theme === 'daylight' ? 'Music, by way of the things you like' : 'The late shift / CrossSignal radio'}</p>
+ <h1>{theme === 'daylight' ? <>Your world.<br />A different <em>soundtrack.</em></> : <>Stay a while.<br />Find another <em>frequency.</em></>}</h1>
+ <p className="hero-deck">{theme === 'daylight' ? 'Start with a film, a book or a game you like. We use those interests to find artists through Qloo, then look up songs you can try.' : 'A film you keep thinking about. A book still on your desk. Start there, and listen to a few artists Qloo connects with those interests.'}</p>
  <a href="#explore" className="hero-start">Find your frequency <ArrowDown size={19} /></a>
  </div><div className="signal-art" aria-hidden="true">
  <div className="art-caption">CROSSSIGNAL RECORD CLUB <ArrowUpRight size={18} /></div>

@@ -14,7 +14,7 @@ export interface Profile {
 
 export const emptyProfile: Profile = {
   signals: [],
-  prefs: { preferred: [], open_to: [], avoided: [], era: null, discovery: 'balanced' },
+  prefs: { preferred: [], open_to: [], avoided: [], eras: [], discovery: 'balanced' },
   liked: [],
   disliked: [],
 }
@@ -25,6 +25,7 @@ export type Action =
   | { type: 'genre'; id: string; state: GenreState }
   | { type: 'cycle-genre'; id: string }
   | { type: 'era'; era: string | null }
+  | { type: 'eras'; eras: string[] }
   | { type: 'discovery'; mode: Discovery }
   | { type: 'like'; artist: Artist }
   | { type: 'dislike'; artist: Artist }
@@ -96,8 +97,14 @@ export function profileReducer(profile: Profile, action: Action): Profile {
       const next = CYCLE[(current + 1) % CYCLE.length]
       return { ...profile, prefs: withGenre(profile.prefs, action.id, next) }
     }
-    case 'era':
-      return { ...profile, prefs: { ...profile.prefs, era: action.era } }
+    case 'era': {
+      const eras = action.era === null ? [] : profile.prefs.eras.includes(action.era)
+        ? profile.prefs.eras.filter(e => e !== action.era)
+        : [...profile.prefs.eras, action.era]
+      return { ...profile, prefs: { ...profile.prefs, eras: normalizeEras(eras) } }
+    }
+    case 'eras':
+      return { ...profile, prefs: { ...profile.prefs, eras: normalizeEras(action.eras) } }
     case 'discovery':
       return { ...profile, prefs: { ...profile.prefs, discovery: action.mode } }
     case 'like': {
@@ -142,6 +149,10 @@ export function hasGenrePrefs(prefs: Preferences): boolean {
   return prefs.preferred.length + prefs.open_to.length + prefs.avoided.length > 0
 }
 
+export const ERA_IDS = ['pre-1980', '1980s', '1990s', '2000s', '2010s', '2020s', 'recent']
+export function normalizeEras(value: unknown): string[] {
+  return ERA_IDS.filter(era => Array.isArray(value) && value.includes(era))
+}
 const STORAGE_KEY = 'crosssignal.profile.v1'
 
 /** Per-viewer convenience only; the app works the same without storage. */
@@ -155,11 +166,12 @@ export function loadProfile(): Profile {
       typeof s.qloo_type === 'string' && ['entity', 'tag'].includes(s.kind)
     const lists = [parsed.prefs?.preferred, parsed.prefs?.open_to, parsed.prefs?.avoided]
     if (!parsed.prefs || !lists.every((list) => Array.isArray(list) && list.every((id) => typeof id === 'string')) ||
-        !['familiar', 'balanced', 'adventurous'].includes(parsed.prefs.discovery) ||
-        !(parsed.prefs.era === null || typeof parsed.prefs.era === 'string')) return emptyProfile
+        !['familiar', 'balanced', 'adventurous'].includes(parsed.prefs.discovery)) return emptyProfile
+    const legacy = parsed.prefs as Preferences & { era?: unknown }
+    const eras = normalizeEras(Array.isArray(legacy.eras) ? legacy.eras : typeof legacy.era === 'string' ? [legacy.era] : [])
     return {
       signals: Array.isArray(parsed.signals) ? parsed.signals.filter(validSignal).slice(0, MAX_SIGNALS) : [],
-      prefs: { ...emptyProfile.prefs, ...parsed.prefs },
+      prefs: { preferred: parsed.prefs.preferred, open_to: parsed.prefs.open_to, avoided: parsed.prefs.avoided, discovery: parsed.prefs.discovery, eras },
       liked: Array.isArray(parsed.liked) ? parsed.liked.filter(validSignal).slice(0, MAX_LIKED) : [],
       disliked: Array.isArray(parsed.disliked) ? parsed.disliked.filter((d) => d && typeof d.id === 'string' && typeof d.name === 'string').slice(-50) : [],
     }

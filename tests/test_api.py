@@ -39,6 +39,35 @@ def test_health_reports_configuration_without_values():
     assert body["config_problem"] == "QLOO_API_KEY is not set"
 
 
+def test_multi_era_api_and_legacy_compatibility():
+    client = make_client()
+    body = {"signals": [FILM], "preferences": {"eras": ["1980s", "2000s", "2010s"]}}
+    response = client.post("/api/discover", json=body)
+    assert response.status_code == 200
+    result = response.json()
+    assert result["preferences"]["eras"] == ["1980s", "2000s", "2010s"]
+    assert result["artists"] and result["artists"][0]["era"]["in_era"] == 3
+    legacy = client.post("/api/discover", json={"signals": [FILM], "preferences": {"era": "2010s"}})
+    assert legacy.json()["preferences"]["eras"] == ["2010s"]
+    assert legacy.json()["preferences"]["era"] == "2010s"
+    cleared = client.post("/api/discover", json={"signals": [FILM], "preferences": {"era": "2010s", "eras": []}})
+    assert cleared.json()["preferences"]["eras"] == []
+    invalid = client.post("/api/discover", json={"signals": [FILM], "preferences": {"eras": ["1890s"]}})
+    assert invalid.status_code == 422
+
+
+def test_reroll_exclusions_are_bounded_and_respected():
+    client = make_client()
+    first = client.post("/api/discover", json={"signals": [FILM]}).json()
+    ids = [a["id"] for a in first["artists"]]
+    next_result = client.post("/api/discover", json={"signals": [FILM], "page": 2, "exclude_artists": ids}).json()
+    assert next_result["page"] == 2
+    assert next_result["artists"] == []
+    assert next_result["status"] == "empty"
+    too_many = client.post("/api/discover", json={"signals": [FILM], "exclude_artists": ["x"] * 161})
+    assert too_many.status_code == 422
+
+
 def test_request_limits_reject_large_bodies_and_keep_valid_json_working():
     client = make_client()
     assert client.post("/api/discover", json={"signals": [FILM]}).status_code == 200

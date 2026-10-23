@@ -142,22 +142,20 @@ export function Sound({
 
       <div className="mt-10 grid gap-8 lg:grid-cols-2">
         <div>
-          <h3 className="font-display text-2xl font-bold">Release era</h3>
+          <h3 className="font-display text-2xl font-bold">Release eras</h3>
           <p className="mt-1 text-sm text-muted">
-            Qloo can&apos;t filter artists by year, so era reorders artists using their Apple
-            Music release dates and picks in-era songs first.
+            Choose as many as you like. We favor songs from those years and try to include each era. Release dates come from a limited Apple Music sample, not the artist&apos;s full catalog.
           </p>
-          <div className="mt-4 flex flex-wrap gap-2" role="radiogroup" aria-label="Release era">
+          <div className="mt-4 flex flex-wrap gap-2" role="group" aria-label="Release eras">
             {[null, ...(options?.eras ?? [])].map((era) => (
               <button
                 key={era ?? 'any'}
                 type="button"
-                role="radio"
-                aria-checked={prefs.era === era}
+                aria-pressed={era === null ? prefs.eras.length === 0 : prefs.eras.includes(era)}
                 onClick={() => dispatch({ type: 'era', era })}
                 className={cn(
                   'rounded-full border-2 px-3.5 py-1.5 text-sm font-semibold transition cursor-pointer',
-                  prefs.era === era ? 'border-ink bg-violet text-ivory' : 'border-ink/15 hover:border-ink',
+                  (era === null ? prefs.eras.length === 0 : prefs.eras.includes(era)) ? 'border-ink bg-violet text-ivory' : 'border-ink/15 hover:border-ink',
                 )}
               >
                 {era ? capitalize(ERA_LABEL[era] ?? era) : 'Any era'}

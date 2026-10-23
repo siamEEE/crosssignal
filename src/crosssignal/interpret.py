@@ -38,6 +38,7 @@ class MusicHints:
     avoided: tuple[str, ...] = ()
     era: str | None = None  # a ranking.ERAS key
     discovery: str | None = None  # a ranking.DISCOVERY_MODES value
+    eras: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -67,6 +68,8 @@ def validate(interpretation: Interpretation) -> Interpretation:
         genres.validate([*music.preferred, *music.avoided])
     except genres.UnknownGenre as exc:
         raise InvalidInterpretation(str(exc)) from exc
+    if any(e not in ERAS for e in music.eras):
+        raise InvalidInterpretation("Unknown release era")
     if music.era is not None and music.era not in ERAS:
         raise InvalidInterpretation(f"Unknown era: {music.era}")
     if music.discovery is not None and music.discovery not in DISCOVERY_MODES:
@@ -148,9 +151,8 @@ def interpret_deterministic(text: str) -> Interpretation:
     text = text[:MAX_TEXT]
     preferred: list[str] = []
     avoided: list[str] = []
-    era = next(
-        (e for e, rx in _ERA_WORDS.items() if re.search(rx, text, re.IGNORECASE)), None
-    )
+    eras = tuple(e for e, rx in _ERA_WORDS.items() if re.search(rx, text, re.IGNORECASE))
+    era = eras[0] if len(eras) == 1 else None
     discovery = next(
         (d for d, rx in _DISCOVERY_WORDS.items() if re.search(rx, text, re.IGNORECASE)),
         None,
@@ -192,5 +194,6 @@ def interpret_deterministic(text: str) -> Interpretation:
         tuple(dict.fromkeys(avoided)),
         era,
         discovery,
+        eras,
     )
     return Interpretation(tuple(first_seen.values())[:MAX_PHRASES], music)

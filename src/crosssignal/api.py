@@ -144,7 +144,8 @@ class PreferencesIn(BaseModel):
     preferred: list[str] = Field(default=[], max_length=100)
     open_to: list[str] = Field(default=[], max_length=100)
     avoided: list[str] = Field(default=[], max_length=100)
-    era: str | None = None
+    era: str | None = Field(default=None, max_length=20)  # legacy single-era clients
+    eras: list[str] | None = Field(default=None, max_length=len(ERAS))
     discovery: Literal["familiar", "balanced", "adventurous"] = "balanced"
 
 
@@ -159,6 +160,7 @@ class DiscoverIn(BaseModel):
     feedback: FeedbackIn = FeedbackIn()
     page: int = Field(default=1, ge=1, le=20)
     max_artists: int = Field(default=MAX_ARTISTS, ge=1, le=MAX_ARTISTS)
+    exclude_artists: list[str] = Field(default=[], max_length=160)
 
 
 class InterpretIn(BaseModel):
@@ -251,7 +253,8 @@ def _result(result: Result) -> dict:
             "preferred": list(prefs.preferred),
             "open_to": list(prefs.open_to),
             "avoided": list(prefs.avoided),
-            "era": prefs.era,
+            "era": prefs.eras[0] if len(prefs.eras) == 1 else None,
+            "eras": list(prefs.eras),
             "discovery": prefs.discovery,
         },
         "tally": {
@@ -432,6 +435,7 @@ def create_app(services: Services | None = None) -> FastAPI:
                 "preferred": list(music.preferred),
                 "avoided": list(music.avoided),
                 "era": music.era,
+                "eras": list(music.eras or ((music.era,) if music.era else ())),
                 "discovery": music.discovery,
             },
         }
@@ -441,7 +445,9 @@ def create_app(services: Services | None = None) -> FastAPI:
         _, engine = live()
         p = body.preferences
         prefs = Preferences(
-            tuple(p.preferred), tuple(p.open_to), tuple(p.avoided), p.era, p.discovery
+            preferred=tuple(p.preferred), open_to=tuple(p.open_to),
+            avoided=tuple(p.avoided), era=p.era if p.eras is None else None,
+            discovery=p.discovery, eras=tuple(p.eras or ())
         )
         feedback = Feedback(
             tuple(s.to_signal() for s in body.feedback.liked),
@@ -449,7 +455,7 @@ def create_app(services: Services | None = None) -> FastAPI:
         )
         result = engine.discover(
             [s.to_signal() for s in body.signals], prefs, feedback,
-            body.page, body.max_artists,
+            body.page, body.max_artists, body.exclude_artists,
         )  # fmt: skip
         return _result(result)
 

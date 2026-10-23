@@ -73,8 +73,10 @@ export const api = {
     preferences: Preferences
     feedback: { liked: Signal[]; disliked: string[] }
     page: number
-  }) =>
+    exclude_artists?: string[]
+  }, signal?: AbortSignal) =>
     request<DiscoverResult>('/api/discover', {
+      signal,
       method: 'POST',
       body: JSON.stringify({
         ...body,

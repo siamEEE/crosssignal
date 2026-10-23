@@ -2,17 +2,6 @@
 // infers taste, mood or personality; nothing restates scores as odds.
 import type { Artist, DiscoverResult, Evidence, Tally } from './types'
 
-const CATEGORY_NOUN: Record<string, string> = {
-  screen: 'title',
-  games: 'game',
-  books: 'book',
-  people: 'creator',
-  podcasts: 'podcast',
-  brands: 'brand',
-  places: 'place',
-  liked: 'artist you liked',
-}
-
 export const ERA_LABEL: Record<string, string> = {
   'pre-1980': 'before 1980',
   '1980s': 'the 1980s',
@@ -28,8 +17,7 @@ export const AFFINITY_HELP =
   "interest's audience. It is not a probability that you'll like the artist."
 
 export function evidenceLine(e: Evidence): string {
-  const noun = CATEGORY_NOUN[e.category] ?? 'interest'
-  return `Qloo's #${e.rank} artist for the ${noun} ${e.signal_name}`
+  return `Qloo placed this artist #${e.rank} for your interest in ${e.signal_name}.`
 }
 
 export function genreLine(artist: Artist): { text: string; tone: 'good' | 'soft' | 'plain' } {
@@ -65,11 +53,13 @@ export function genreLine(artist: Artist): { text: string; tone: 'good' | 'soft'
   }
 }
 
-export function eraLine(artist: Artist, era: string | null): string | null {
-  if (!era || !artist.era) return null
-  const where = ERA_LABEL[era] ?? era
-  if (!artist.era.dated) return `No release years in the catalog to compare with ${where}`
-  return `${artist.era.in_era} of ${artist.era.dated} catalog songs are from ${where}`
+export function eraLine(artist: Artist, era: string | string[] | null): string | null {
+  const eras = typeof era === 'string' ? [era] : era ?? []
+  if (!eras.length || !artist.era) return null
+  const where = eras.map(e => ERA_LABEL[e] ?? e).join(', ')
+  if (!artist.era.dated) return `No release years in this catalog sample to compare with ${where}`
+  if (!artist.era.in_era) return `None of the ${artist.era.dated} sampled songs are from ${where}; other releases may be.`
+  return `${artist.era.in_era} of ${artist.era.dated} sampled catalog songs are from ${where}`
 }
 
 /** One honest sentence about what was left out and why. */

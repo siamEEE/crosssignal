@@ -86,7 +86,7 @@ export interface Preferences {
   preferred: string[]
   open_to: string[]
   avoided: string[]
-  era: string | null
+  eras: string[]
   discovery: Discovery
 }
 
@@ -160,6 +160,7 @@ export interface Interpretation {
     preferred: string[]
     avoided: string[]
     era: string | null
+    eras: string[]
     discovery: Discovery | null
   }
 }

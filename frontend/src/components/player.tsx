@@ -64,7 +64,7 @@ function NowPlaying() {
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 80, opacity: 0 }}
-          className="fixed bottom-40 left-1/2 z-40 flex md:bottom-28 w-[min(28rem,calc(100%-2rem))] -translate-x-1/2 items-center gap-3 rounded-full bg-ink py-2 pr-2 pl-2 text-ivory shadow-pop"
+          className="now-playing fixed bottom-40 left-1/2 z-40 flex md:bottom-28 w-[min(28rem,calc(100%-2rem))] -translate-x-1/2 items-center gap-3 rounded-full bg-ink py-2 pr-2 pl-2 text-ivory shadow-pop"
         >
           {current.artwork_small ? (
             <img
