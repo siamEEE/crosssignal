@@ -6,6 +6,7 @@ export const PlaylistContext = createContext<{
   playlist: Playlist
   add: (tracks: Track[]) => void
   remove: (key: string) => void
+  clear: () => void
   move: (from: number, to: number) => void
   rename: (name: string) => void
   notice: string
