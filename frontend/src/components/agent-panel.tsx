@@ -19,6 +19,7 @@ export function AgentPanel({ profile, currentPage, seen, onResult }: {
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
   const [trace, setTrace] = useState<string[]>([])
+  const [latestMix, setLatestMix] = useState<DiscoverResult | null>(null)
 
   async function send() {
     const text = message.trim()
@@ -41,6 +42,7 @@ export function AgentPanel({ profile, currentPage, seen, onResult }: {
       })
       setTurns([...next, { role: 'model', content: answer.reply }])
       setTrace(answer.trace)
+      if (answer.result) setLatestMix(answer.result)
       onResult(answer)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'The radio host is unavailable right now.')
@@ -63,6 +65,29 @@ export function AgentPanel({ profile, currentPage, seen, onResult }: {
               <p key={i} className={`max-w-[95%] rounded-xl p-3 text-sm leading-relaxed ${t.role === 'user' ? 'ml-auto bg-violet text-ivory' : 'bg-ivory-2'}`}>{t.content}</p>
             ))}
             {trace.length > 0 && <div className="rounded-xl border border-ink/20 p-3"><p className="text-xs font-bold">Tools used</p><ul className="mt-1 list-inside list-disc text-xs text-muted">{trace.map((t,i)=><li key={i}>{t}</li>)}</ul></div>}
+            {latestMix && latestMix.artists.length > 0 && (
+              <div className="rounded-xl border border-ink/20 bg-ivory-2 p-3">
+                <p className="text-sm font-bold">Your latest mix · {latestMix.artists.length} artists</p>
+                <ol className="mt-2 space-y-2">
+                  {latestMix.artists.slice(0, 3).map(artist => (
+                    <li key={artist.id} className="text-sm">
+                      <span className="font-semibold">{artist.name}</span>
+                      {artist.tracks[0] && <span className="block text-xs text-muted">Try: {artist.tracks[0].title}</span>}
+                    </li>
+                  ))}
+                </ol>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpen(false)
+                    document.getElementById('radio')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }}
+                  className="mt-3 rounded-lg bg-ink px-3 py-2 text-xs font-bold text-ivory"
+                >
+                  View all {latestMix.artists.length} in Radio
+                </button>
+              </div>
+            )
             {busy && <p className="flex items-center gap-2 text-xs text-muted"><Loader2 size={15} className="animate-spin"/> Checking Qloo and the catalog…</p>}
             {error && <p role="alert" className="rounded-lg border border-coral p-2 text-sm">{error}</p>}
           </div>
