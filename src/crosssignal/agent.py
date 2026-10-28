@@ -95,9 +95,9 @@ def run_agent(
     system = (
         "You are CrossSignal's concise, grounded music-radio assistant. "
         "You operate tools; do not invent Qloo artists, entity IDs, tracks, matches or tool outcomes. "
-        "If the listener names cultural titles, call find_interest for each title. "
+        "When the listener names films, games, books or other cultural references, you MUST call find_interest for each title. This is how you get real Qloo IDs without making the listener use the manual picker. "
         "Only a unique exact Qloo match is added; for ambiguous names ask them to clarify. "
-        "When the listener requests recommendations or a new mix, call tune_radio. "
+        "When the listener requests music recommendations, first resolve their cultural references and apply any music preferences, then call tune_radio yourself and present the results in the existing radio cards. Do not ask the listener to select anything manually unless Qloo returns ambiguous matches. If no cultural interest can be identified, ask for one. "
         "Call set_music_preferences for specified genres/eras/discovery; otherwise keep the existing choices. "
         "Be natural, not promotional. Say when a match cannot be verified. "
         "For a request to try again, tune a later page, keeping the user's existing choices. "
@@ -202,8 +202,23 @@ def run_agent(
                 )
                 response.raise_for_status()
                 return response.json()
+        except httpx.HTTPStatusError as exc:
+            status = exc.response.status_code
+            if status in (401, 403):
+                reason = "Gemini rejected the server API key. Check GEMINI_API_KEY on Render."
+            elif status == 404:
+                reason = f"Gemini model {model} is unavailable to this API project (404). Check its model access."
+            elif status == 400:
+                reason = "Gemini rejected the model request (400). Check the deployment/model configuration."
+            elif status == 429:
+                reason = "Gemini quota or rate limit reached (429). Try a model available on your AI Studio free tier."
+            elif status in (500, 502, 503, 504):
+                reason = f"Gemini is temporarily overloaded (HTTP {status}). Try again shortly."
+            else:
+                reason = f"Gemini API returned HTTP {status}."
+            raise AgentUnavailable(reason) from exc
         except (httpx.HTTPError, ValueError) as exc:
-            raise AgentUnavailable("Gemini could not complete that request. Try again shortly.") from exc
+            raise AgentUnavailable("Couldn't reach the Gemini API. Try again shortly.") from exc
 
     contents: list[dict[str, Any]] = []
     for turn in (history or [])[-6:]:
@@ -225,7 +240,7 @@ def run_agent(
             "systemInstruction": {"parts": [{"text": system}]},
             "contents": contents,
             "tools": [{"functionDeclarations": TOOLS}],
-            "generationConfig": {"temperature": 0.3, "maxOutputTokens": 1000},
+            "generationConfig": {"maxOutputTokens": 2400, "thinkingConfig": {"thinkingLevel": "LOW"}},
         })
         candidates = response.get("candidates") or []
         if not candidates:
@@ -238,6 +253,7 @@ def run_agent(
             reply = " ".join(p.get("text", "") for p in parts if isinstance(p, dict)).strip()
             break
         contents.append({"role": "model", "parts": parts})
+        function_responses: list[dict[str, Any]] = []
         for function_call in calls[:MAX_TOOLS - tool_count]:
             name = function_call.get("name")
             args = function_call.get("args") or {}
@@ -251,10 +267,14 @@ def run_agent(
                 output = tune(args)
             else:
                 output = {"error": "Unknown function"}
-            contents.append({"role": "user", "parts": [
-                {"functionResponse": {"name": name, "response": {"result": output}}}
-            ]})
+            function_response = {"name": name, "response": {"result": output}}
+            # Gemini 3.x needs the exact function-call ID when provided.
+            if function_call.get("id"):
+                function_response["id"] = function_call["id"]
+            function_responses.append({"functionResponse": function_response})
             tool_count += 1
+        if function_responses:
+            contents.append({"role": "user", "parts": function_responses})
         if tool_count >= MAX_TOOLS:
             break
 
