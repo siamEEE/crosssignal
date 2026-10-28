@@ -54,6 +54,26 @@ export function wireSignal({ id, kind, name, category, qloo_type }: Signal): Sig
 }
 
 export const api = {
+  agent: (body: {
+    message: string
+    signals: Signal[]
+    preferences: Preferences
+    feedback: { liked: Signal[]; disliked: string[] }
+    history: { role: 'user' | 'model'; content: string }[]
+    seen: string[]
+    page: number
+  }) => request<{
+    reply: string
+    trace: string[]
+    signals: Signal[]
+    preferences: Preferences
+    result: DiscoverResult | null
+    page: number
+  }>('/api/agent/chat', {
+    method: 'POST',
+    body: JSON.stringify({ ...body, signals: body.signals.map(wireSignal),
+      feedback: { ...body.feedback, liked: body.feedback.liked.map(wireSignal) } }),
+  }),
   health: () => request<Health>('/api/health'),
   categories: () => request<Category[]>('/api/categories'),
   featured: () => request<Collection[]>('/api/featured'),
