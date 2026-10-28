@@ -1,4 +1,5 @@
 import { MotionConfig } from 'motion/react'
+import { AgentPanel } from '@/components/agent-panel'
 import { AlertTriangle, CheckCircle2 } from 'lucide-react'
 import { useCallback, useEffect, useReducer, useRef, useState } from 'react'
 import { PlaylistProvider, PlaylistSection } from '@/components/playlist'
@@ -202,6 +203,20 @@ export default function App() {
                 onRetry={() => lastRequest.current && run(lastRequest.current.profile, lastRequest.current.page)}
               />
               <PlaylistSection />
+              <AgentPanel
+                profile={profile}
+                currentPage={radio.status === 'done' ? radio.result.page : 1}
+                seen={[...session.current.ids]}
+                onResult={answer => {
+                  dispatch({ type: 'replace', profile: { ...profile, signals: answer.signals, prefs: answer.preferences } })
+                  if (answer.result) {
+                    session.current.reset()
+                    setRadio({ status: 'done', result: answer.result })
+                    setTunedProfile({ ...profile, signals: answer.signals, prefs: answer.preferences })
+                    document.getElementById('radio')?.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }}
+              />
               <footer className="mx-auto max-w-6xl px-4 py-12 text-xs leading-relaxed text-muted">
                 Artist recommendations: Qloo Insights API (hackathon). Songs, artwork and 30-second
                 previews: Apple iTunes Search API; titles open on Apple Music. Affinity is Qloo&apos;s
