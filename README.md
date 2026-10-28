@@ -18,6 +18,17 @@ CrossSignal starts from *culture*, rather than requiring you to name a favorite 
 
 **Important distinctions:** Apple Music catalog links are track-specific; YouTube, YouTube Music, and Spotify links are **searches**, not verified matches or playlists created on those services. The in-app playlist is stored locally in the browser. Qloo affinities are associations, **not** predictions or probabilities of personal enjoyment.
 
+## Optional AI Radio Host
+
+CrossSignal also includes a **Gemini-powered agent** in a collapsible chat panel. Unlike the manual radio, it can choose and execute bounded, real tools:
+
+- `find_interest` resolves cultural titles against Qloo and adds only uniquely confirmed matches.
+- `set_music_preferences` updates known genre IDs, release eras and discovery settings.
+- `tune_radio` invokes the existing Qloo Insights → Apple Music verification pipeline and returns actual recommendation cards.
+- Follow-up prompts can request another Qloo page while preserving your previous preferences.
+
+The agent returns a short trace of which tools actually ran. Manual discovery works without Gemini. This feature requires an additional **server-side** `GEMINI_API_KEY`, and optionally `CROSSSIGNAL_AGENT_MODEL=gemini-3.8-flash`. The chat is not a separate music catalog and does not invent songs. Live Gemini access depends on the API project and its quota.
+
 ## How it works
 
 ```text
@@ -38,7 +49,7 @@ User-selected cultural references
  Listen · Like / Dislike · Reroll · Save playlist
 ```
 
-CrossSignal does not invent artists to fill a result page. Genre matches and limitations are shown where the available Qloo or music-catalog evidence is incomplete. The description interpreter currently uses deterministic parsing and user-confirmed Qloo entity resolution; the repository includes separate tool wrappers intended for possible agent integration, but **does not claim a deployed autonomous LLM agent**.
+CrossSignal does not invent artists to fill a result page. Genre matches and limitations are shown where the available Qloo or music-catalog evidence is incomplete. The manual description interpreter uses deterministic parsing and user-confirmed Qloo entity resolution. The optional AI Radio Host uses Gemini function calling to invoke bounded, real Qloo and music-discovery tools.
 
 ## Stack
 
@@ -62,6 +73,8 @@ Prerequisites: **Python 3.12+**, [uv](https://docs.astral.sh/uv/), and **Node.js
 CROSSSIGNAL_PROVIDER=qloo
 QLOO_API_KEY=your_qloo_api_key
 QLOO_API_URL=https://hackathon.api.qloo.com
+GEMINI_API_KEY=your_gemini_key
+CROSSSIGNAL_AGENT_MODEL=gemini-3.8-flash
 ```
 
 3. Install and build the frontend:
