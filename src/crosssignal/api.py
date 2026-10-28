@@ -25,6 +25,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from crosssignal import culture, genres
+from crosssignal.agent import AgentUnavailable, agent_configured, run_agent
 from crosssignal.catalog import search_tracks
 from crosssignal.config import ConfigError, load_settings
 from crosssignal.culture import Kind
@@ -161,6 +162,21 @@ class DiscoverIn(BaseModel):
     page: int = Field(default=1, ge=1, le=20)
     max_artists: int = Field(default=MAX_ARTISTS, ge=1, le=MAX_ARTISTS)
     exclude_artists: list[str] = Field(default=[], max_length=160)
+
+
+class AgentTurnIn(BaseModel):
+    role: Literal["user", "model"]
+    content: str = Field(max_length=900)
+
+
+class AgentIn(BaseModel):
+    message: str = Field(min_length=1, max_length=600)
+    signals: list[SignalIn] = Field(default=[], max_length=MAX_SIGNALS)
+    preferences: PreferencesIn = PreferencesIn()
+    feedback: FeedbackIn = FeedbackIn()
+    history: list[AgentTurnIn] = Field(default=[], max_length=6)
+    seen: list[str] = Field(default=[], max_length=160)
+    page: int = Field(default=1, ge=1, le=20)
 
 
 class InterpretIn(BaseModel):
@@ -306,7 +322,7 @@ def create_app(services: Services | None = None) -> FastAPI:
         # Bound upstream work per process; reject bursts rather than queueing
         # unbounded paid-provider requests. No client IP or taste data stored.
         expensive = request.url.path in {
-            "/api/search", "/api/interpret", "/api/discover"
+            "/api/search", "/api/interpret", "/api/discover", "/api/agent/chat"
         }
         acquired = False
         if expensive:
@@ -381,6 +397,7 @@ def create_app(services: Services | None = None) -> FastAPI:
             "qloo_configured": s.qloo is not None,
             "config_problem": s.config_problem,
             "interpreter": "deterministic",
+            "agent_configured": agent_configured(),
         }
 
     @app.get("/api/categories")
@@ -458,6 +475,37 @@ def create_app(services: Services | None = None) -> FastAPI:
             body.page, body.max_artists, body.exclude_artists,
         )  # fmt: skip
         return _result(result)
+
+    @app.post("/api/agent/chat")
+    def agent_chat(body: AgentIn) -> dict:
+        qloo, engine = live()
+        p = body.preferences
+        prefs = Preferences(
+            preferred=tuple(p.preferred), open_to=tuple(p.open_to),
+            avoided=tuple(p.avoided), era=p.era if p.eras is None else None,
+            discovery=p.discovery, eras=tuple(p.eras or ())
+        )
+        feedback = Feedback(
+            tuple(s.to_signal() for s in body.feedback.liked),
+            tuple(body.feedback.disliked),
+        )
+        try:
+            response = run_agent(
+                qloo, engine, body.message,
+                [s.to_signal() for s in body.signals], prefs, feedback,
+                history=[turn.model_dump() for turn in body.history],
+                seen=body.seen, default_page=body.page,
+            )
+        except AgentUnavailable as exc:
+            return _error(503, "unavailable", str(exc))
+        return {
+            "reply": response["reply"],
+            "trace": response["trace"],
+            "signals": [_signal(s) for s in response["signals"]],
+            "preferences": response["preferences"],
+            "result": _result(response["result"]) if response["result"] is not None else None,
+            "page": response["page"],
+        }
 
     if FRONTEND_DIST.is_dir():
         app.mount("/", StaticFiles(directory=FRONTEND_DIST, html=True), name="frontend")
