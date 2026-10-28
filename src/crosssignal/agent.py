@@ -194,7 +194,8 @@ def run_agent(
             return generate(payload)
         model = os.getenv("CROSSSIGNAL_AGENT_MODEL", MODEL).strip() or MODEL
         try:
-            with httpx.Client(timeout=24) as client:
+            # Model tool calling can require more than 24 seconds on the free deployment.
+            with httpx.Client(timeout=httpx.Timeout(connect=12.0, read=75.0, write=12.0, pool=8.0)) as client:
                 response = client.post(
                     f"{ENDPOINT}{model}:generateContent",
                     headers={"x-goog-api-key": key, "Content-Type": "application/json"},
@@ -217,8 +218,18 @@ def run_agent(
             else:
                 reason = f"Gemini API returned HTTP {status}."
             raise AgentUnavailable(reason) from exc
-        except (httpx.HTTPError, ValueError) as exc:
-            raise AgentUnavailable("Couldn't reach the Gemini API. Try again shortly.") from exc
+        except httpx.ConnectTimeout as exc:
+            raise AgentUnavailable("Gemini connection timed out. The server could not connect to Google.") from exc
+        except httpx.ReadTimeout as exc:
+            raise AgentUnavailable("Gemini took too long to respond. Try again; a lighter model may help.") from exc
+        except httpx.ConnectError as exc:
+            raise AgentUnavailable("CrossSignal cannot connect to Google's API. Check Render's outbound network and DNS.") from exc
+        except httpx.RemoteProtocolError as exc:
+            raise AgentUnavailable("Gemini's connection ended unexpectedly. Try again.") from exc
+        except httpx.HTTPError as exc:
+            raise AgentUnavailable(f"Gemini network error ({type(exc).__name__}). Try again.") from exc
+        except ValueError as exc:
+            raise AgentUnavailable("Gemini returned an unreadable response, rather than valid JSON.") from exc
 
     contents: list[dict[str, Any]] = []
     for turn in (history or [])[-6:]:
