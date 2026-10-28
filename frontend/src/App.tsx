@@ -210,7 +210,9 @@ export default function App() {
                 onResult={answer => {
                   dispatch({ type: 'replace', profile: { ...profile, signals: answer.signals, prefs: answer.preferences } })
                   if (answer.result) {
-                    session.current.reset()
+                    // Keep the agent's real result in the session history for subsequent rerolls.
+                    session.current.begin({ ...profile, signals: answer.signals, prefs: answer.preferences }, true)
+                    session.current.accept(session.current.version, answer.result)
                     setRadio({ status: 'done', result: answer.result })
                     setTunedProfile({ ...profile, signals: answer.signals, prefs: answer.preferences })
                     document.getElementById('radio')?.scrollIntoView({ behavior: 'smooth' })
